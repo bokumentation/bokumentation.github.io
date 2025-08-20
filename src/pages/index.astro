@@ -1,0 +1,66 @@
+---
+import BlogCard from '@/components/BlogCard.astro'
+import Link from '@/components/Link.astro'
+import PageHead from '@/components/PageHead.astro'
+import SocialIcons from '@/components/SocialIcons.astro'
+import { buttonVariants } from '@/components/ui/button'
+import { SITE, SOCIAL_LINKS } from '@/consts'
+import Layout from '@/layouts/Layout.astro'
+import { getRecentPosts } from '@/lib/data-utils'
+
+const blog = await getRecentPosts(SITE.featuredPostCount)
+---
+
+<Layout class="max-w-3xl">
+  <PageHead slot="head" title="Home" />
+  <section class="flex flex-col items-center space-y-1.5 text-center">
+    <h2 class="text-2xl leading-none font-medium">Hai there👋</h2>
+    <h3 class="text-muted-foreground text-xl">Welcome to the Bokumentation!</h3>
+    <p class="text-muted-foreground mt-4 text-sm">
+      From documentation become bokumentation because of ibe. I love doing
+      system low level programming and cinematography. What if i combined both?
+      And yes i'am still a "Diploma 3 of Computer Engineering" indonesia college
+      student. Looking for international internship.
+    </p>
+  </section>
+
+  <div
+    class="mx-auto flex max-w-3xl flex-col items-center justify-center gap-y-2 px-4 sm:flex-row sm:justify-between"
+  >
+    <SocialIcons links={SOCIAL_LINKS} />
+  </div>
+
+  <section class="flex flex-col gap-y-4">
+    <div
+      class="border-accent flex items-center justify-between border-t border-b py-4"
+    >
+      <h2 class="text-sm font-medium">Latest posts</h2>
+      <a class="text-sm font-medium" href="/blog">
+        See all blogs <span
+          class="transition-transform group-hover:translate-x-1">&rarr;</span
+        ></a
+      >
+    </div>
+    <ul class="flex flex-col gap-y-4">
+      {
+        blog.map((post) => (
+          <li>
+            <BlogCard entry={post} />
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex justify-center">
+      <Link
+        href="/blog"
+        class={buttonVariants({ variant: 'ghost' }) + ' group'}
+      >
+        See all posts <span
+          class="ml-1.5 transition-transform group-hover:translate-x-1"
+          >&rarr;</span
+        >
+      </Link>
+    </div>
+  </section>
+</Layout>
