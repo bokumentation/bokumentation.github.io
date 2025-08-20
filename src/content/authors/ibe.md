@@ -1,7 +1,7 @@
 ---
 name: 'Ibe Ibrahim'
 pronouns: 'he'
-avatar: '/src/content/authors/ibepic.jpeg'
+avatar: '/src/content/authors/ibepic.webp'
 bio: 'I love reverse engineering!'
 website: 'https://bokumentation.vercel.app'
 github: 'https://github.com/bokumentation'
