@@ -29,7 +29,7 @@ export const NAV_LINKS: SocialLink[] = [
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
-    href: 'https://youtube.com/bokumentation',
+    href: 'https://youtube.com/@bokumentation',
     label: 'Youtube',
   },
   {

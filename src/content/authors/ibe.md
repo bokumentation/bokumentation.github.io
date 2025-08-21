@@ -6,6 +6,6 @@ bio: 'I love reverse engineering!'
 website: 'https://bokumentation.vercel.app'
 github: 'https://github.com/bokumentation'
 instagram: 'https://instagram.com/bokumentation'
-youtube: 'https://youtube.com/bokumentation'
+youtube: 'https://youtube.com/@bokumentation'
 mail: 'cihuy@gmail.com'
 ---
