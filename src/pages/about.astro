@@ -1,7 +1,6 @@
 ---
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import PageHead from '@/components/PageHead.astro'
-import ProjectCard from '@/components/ProjectCard.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getAllProjects } from '@/lib/data-utils'
 
@@ -17,38 +16,32 @@ const authors = await getAllAuthors()
   <PageHead slot="head" title="About" />
   <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
 
-  <h1 class="text-2xl font-medium">Behind the Scene</h1>
-  <div class="prose mb-4">
-    <p class="mt-0">Cihuy</p>
-  </div>
-
-  <h1 class="text-2xl font-medium">Meet the Author</h1>
-  <div class="prose mb-4">
-    <p class="mt-0">Cihuy</p>
-  </div>
-
-  {
-    authors.length > 0 ? (
-      <ul class="flex flex-col gap-4">
-        {authors.map((author) => (
-          <li>
-            <AuthorCard author={author} />
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p class="text-muted-foreground text-center">No authors found.</p>
-    )
-  }
-
   <section>
-    <div class="min-w-full">
-      <h2 class="mb-4 text-2xl font-medium">Projects Portofolio</h2>
-      <div class="flex flex-col gap-4">
-        {projects.map((project) => <ProjectCard project={project} />)}
-      </div>
+    <h1 class="mb-4 text-2xl font-medium">Meet the Author</h1>
+    <div class="mb-4">
+      {
+        authors.length > 0 ? (
+          <ul class="flex flex-col gap-4">
+            {authors.map((author) => (
+              <li>
+                <AuthorCard author={author} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="text-muted-foreground text-center">No authors found.</p>
+        )
+      }
+    </div>
+    <div class="prose">
+      <p class="text-muted-foreground mt-0">The Original Name</p>
     </div>
   </section>
+
+  <h1 class="text-2xl font-medium">Behind the Scene</h1>
+  <div class="prose mb-4">
+    <p class="text-muted-foreground mt-0">Cihuy</p>
+  </div>
 
   <section>
     <div class="min-w-full">
