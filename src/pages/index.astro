@@ -13,7 +13,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
 
 <Layout class="max-w-3xl">
   <PageHead slot="head" title="Home" />
-  <section class="flex flex-col items-center space-y-1.5 text-center">
+  <section class="flex flex-col items-center space-y-1 text-center">
     <h2 class="text-2xl leading-none font-medium">Hai there👋</h2>
     <h3 class="text-muted-foreground text-xl">Welcome to the Bokumentation!</h3>
     <p class="text-muted-foreground mt-4 text-sm">
@@ -36,9 +36,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
     >
       <h2 class="text-sm font-medium">Latest posts</h2>
       <a class="text-sm font-medium" href="/blog">
-        See all blogs <span
-          class="transition-transform group-hover:translate-x-1">&rarr;</span
-        ></a
+        See all blogs <span class="group-hover:translate-x-1">&rarr;</span></a
       >
     </div>
     <ul class="flex flex-col gap-y-4">
@@ -56,8 +54,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
         href="/blog"
         class={buttonVariants({ variant: 'ghost' }) + ' group'}
       >
-        See all posts <span
-          class="ml-1.5 transition-transform group-hover:translate-x-1"
+        See all posts <span class="ml-1.5 group-hover:translate-x-1"
           >&rarr;</span
         >
       </Link>

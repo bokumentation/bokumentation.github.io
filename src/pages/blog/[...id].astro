@@ -121,10 +121,11 @@ const tocSections = await getTOCSections(currentPostId)
           alt={post.data.title}
           width={1200}
           height={630}
-          class="col-span-full mx-auto w-full max-w-5xl object-cover"
+          class="col-span-full mx-auto w-full max-w-5xl rounded-2xl object-cover"
         />
       )
     }
+
     <!-- BLOG POST TITLE AND INFORMATION -->
     <section class="col-start-2 flex flex-col gap-y-6 text-center">
       <!-- BLOG POST TITLE -->
@@ -237,7 +238,7 @@ const tocSections = await getTOCSections(currentPostId)
   >
     <Icon
       name="lucide:arrow-up"
-      class="mx-auto size-4 transition-all group-hover:-translate-y-0.5"
+      class="mx-auto size-4 group-hover:-translate-y-0.5"
     />
   </Button>
 
