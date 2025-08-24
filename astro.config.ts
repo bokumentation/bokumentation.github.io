@@ -22,7 +22,6 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   site: 'https://bokumentation.github.io',
   outDir: './dist',
-  output: 'static',
   integrations: [
     expressiveCode({
       themes: ['github-light', 'github-dark'],
