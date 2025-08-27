@@ -62,7 +62,6 @@ const tocSections = await getTOCSections(currentPostId)
 <Layout>
   <PostHead slot="head" post={post} />
   {
-    // Subpost
     (hasChildPosts || isCurrentSubpost) && (
       <SubpostsHeader
         slot="subposts-navigation"
@@ -70,8 +69,6 @@ const tocSections = await getTOCSections(currentPostId)
       />
     )
   }
-
-  <!-- TOC HEADER -->
   {
     headings?.length > 0 &&
       !(
@@ -81,12 +78,16 @@ const tocSections = await getTOCSections(currentPostId)
       ) && <TOCHeader slot="table-of-contents" headings={headings} />
   }
 
-  <section
-    class="grid grid-cols-[minmax(0px,1fr)_min(calc(var(--breakpoint-md)-2rem),100%)_minmax(0px,1fr)] gap-y-6"
-  >
-    <!-- BREADCRUMBS NAVIGATION -->
-    <div class="col-start-2">
-      <Breadcrumbs
+<!-- MAIN DIV -->
+<div class="w-full lg:flex justify-center items-center"> 
+<div class="lg:justify-between lg:flex">
+
+  <!-- START MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
+  <section class="grow flex flex-col gap-y-6 sm:max-w-4xl lg:border-accent lg:border lg:rounded-xl xl:w-4xl lg:w-4xl lg:p-4">
+    <!-- START BREADCRUMBS NAVIGATION -->
+    <section id="breadcrumbs" class="w-full">
+      <div class="">
+        <Breadcrumbs
         items={[
           { href: '/blog', label: 'Blog', icon: 'lucide:library-big' },
           ...(isCurrentSubpost && parentPost
@@ -109,11 +110,13 @@ const tocSections = await getTOCSections(currentPostId)
                   icon: 'lucide:book-open-text',
                 },
               ]),
-        ]}
-      />
-    </div>
+            ]}
+        />
+      </div>
+    </section>
+    <!-- END BREADCRUMBS NAVIGATION -->
 
-    <!-- BLOG POST IMAGE -->
+    <!-- START BLOG POST IMAGE -->
     {
       post.data.image && (
         <Image
@@ -121,39 +124,23 @@ const tocSections = await getTOCSections(currentPostId)
           alt={post.data.title}
           width={1200}
           height={630}
-          class="col-span-full mx-auto w-full max-w-5xl rounded-2xl object-cover"
+          class="rounded-2xl object-cover"
         />
       )
     }
+    <!-- END BLOG POST IMAGE -->
 
-    <!-- BLOG POST TITLE AND INFORMATION -->
-    <section class="col-start-2 flex flex-col gap-y-6 text-center">
-      <!-- BLOG POST TITLE -->
+    <!-- START BLOG POST TITLE AND INFORMATION -->
+    <section class=" flex flex-col text-center">
       <div class="flex flex-col">
-        <h1
-          class="mb-2 scroll-mt-31 text-3xl leading-tight font-medium sm:text-4xl"
-          id="post-title"
-        >
-          {post.data.title}
-        </h1>
-
-        <!-- BLOG POST INFORMATION -->
-        <div
-          class="text-muted-foreground divide-border mb-4 flex flex-col items-center justify-center divide-y text-xs sm:flex-row sm:flex-wrap sm:divide-x sm:divide-y-0 sm:text-sm"
-        >
+        <!-- BLOG POST TITLE -->
+        <h1 class="mb-2 scroll-mt-31 text-3xl leading-tight font-medium sm:text-4xl" id="post-title" > {post.data.title} </h1>
+        <!-- START BLOG POST INFORMATION -->
+        <div class="text-muted-foreground divide- mb-4 flex flex-col items-center justify-center divide-y text-xs sm:flex-row sm:flex-wrap sm:divide-x sm:divide-y-0 sm:text-sm" >
           <!-- DATE -->
-          <div
-            class="flex w-full items-center justify-center gap-2 py-2 sm:w-fit sm:px-2 sm:py-0 first:sm:pl-0 last:sm:pr-0"
-          >
-            <span>{formatDate(post.data.date)}</span>
-          </div>
-
+          <div class="flex w-full items-center justify-center gap-2 py-2 sm:w-fit sm:px-2 sm:py-0 first:sm:pl-0 last:sm:pr-0" > <span>{formatDate(post.data.date)}</span> </div>
           <!-- READING TIME -->
-          <div
-            class="flex w-full items-center justify-center gap-2 py-2 sm:w-fit sm:px-2 sm:py-0 first:sm:pl-0 last:sm:pr-0"
-          >
-            <span>
-              {postReadingTime}
+          <div class="flex w-full items-center justify-center gap-2 py-2 sm:w-fit sm:px-2 sm:py-0 first:sm:pl-0 last:sm:pr-0" > <span>{postReadingTime}
               {
                 combinedReadingTime &&
                   combinedReadingTime !== postReadingTime && (
@@ -176,6 +163,7 @@ const tocSections = await getTOCSections(currentPostId)
             )
           }
         </div>
+        <!-- END BLOG POST INFORMATION -->
 
         <!-- BLOG POST TAG HASH -->
         <div class="flex flex-wrap justify-center gap-2">
@@ -193,40 +181,52 @@ const tocSections = await getTOCSections(currentPostId)
               ))
           }
         </div>
+        <!-- END BLOG POST TAG HASH -->
       </div>
     </section>
+    <!-- END BLOG POST TITLE AND INFORMATION -->
 
-    <!-- TOC DESKTOP -->
-    {
-      tocSections.length > 0 && (
-        <TOCSidebar sections={tocSections} currentPostId={currentPostId} />
-      )
-    }
-
-    <!-- BLOG POST MAIN CONTENT ARTICLE -->
-    <article class="prose col-start-2 max-w-none">
-      <Content />
-    </article>
+    <!-- BLOG POST MAIN CONTENT ARTICLE Original: prose col-start-2 -->
+    <section class="lg:p-4">
+       <article class="prose">
+        <Content />
+        </article>
+    </section>
 
     <!-- IF BLOG HAS SUBPOST, THIS IS SUB POST SIDE BAR -->
-    {
-      (hasChildPosts || isCurrentSubpost) && (
-        <SubpostsSidebar
-          parentId={
-            isCurrentSubpost ? getParentId(currentPostId) : currentPostId
-          }
-          className="w-64"
-        />
+    { (hasChildPosts || isCurrentSubpost) && (
+        <SubpostsSidebar parentId={ isCurrentSubpost ? getParentId(currentPostId) : currentPostId } className="w-64"/>
       )
     }
 
     <!-- BLOG POST NAVIGATION -->
-    <PostNavigation
-      newerPost={navigation.newer}
-      olderPost={navigation.older}
-      parentPost={isCurrentSubpost ? navigation.parent : undefined}
-    />
+     <div class="">
+       <PostNavigation newerPost={navigation.newer} olderPost={navigation.older} parentPost={isCurrentSubpost ? navigation.parent : undefined} />
+     </div>
   </section>
+  <!-- END MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
+
+    <!-- START TABLE OF CONTENTS -->
+  <div class="w-[280px] lg:p-2 hidden xl:block">
+    <div class="sticky top-4 shrink-0">
+      {
+        tocSections.length > 0 && (
+          <TOCSidebar sections={tocSections} currentPostId={currentPostId} />
+        )
+      } 
+    </div>
+  </div>
+  <!-- END TABLE OF CONTENTS -->
+</div>
+
+
+
+</div>
+
+
+
+
+
 
   <Button
     variant="outline"

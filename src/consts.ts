@@ -44,6 +44,10 @@ export const SOCIAL_LINKS: SocialLink[] = [
     href: 'mailto:no_email@gmail.com',
     label: 'Email',
   },
+  {
+    href: 'https://www.linkedin.com/in/ibrahim-fauzi-rahman-b04b9a21b/',
+    label: 'LinkedIn',
+  }
 ]
 
 export const ICON_MAP: IconMap = {
