@@ -81,7 +81,6 @@ const tocSections = await getTOCSections(currentPostId)
 <!-- MAIN DIV -->
 <div class="w-full lg:flex justify-center items-center"> 
 <div class="lg:justify-between lg:flex">
-
   <!-- START MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
   <section class="grow flex flex-col gap-y-6 sm:max-w-4xl lg:border-accent lg:border lg:rounded-xl xl:w-4xl lg:w-4xl lg:p-4">
     <!-- START BREADCRUMBS NAVIGATION -->
@@ -193,12 +192,6 @@ const tocSections = await getTOCSections(currentPostId)
         </article>
     </section>
 
-    <!-- IF BLOG HAS SUBPOST, THIS IS SUB POST SIDE BAR -->
-    { (hasChildPosts || isCurrentSubpost) && (
-        <SubpostsSidebar parentId={ isCurrentSubpost ? getParentId(currentPostId) : currentPostId } className="w-64"/>
-      )
-    }
-
     <!-- BLOG POST NAVIGATION -->
      <div class="">
        <PostNavigation newerPost={navigation.newer} olderPost={navigation.older} parentPost={isCurrentSubpost ? navigation.parent : undefined} />
@@ -206,8 +199,19 @@ const tocSections = await getTOCSections(currentPostId)
   </section>
   <!-- END MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
 
+  <!-- START OF SIDE BAR -->
+  <div class="w-[280px] lg:px-2 hidden xl:block">
+    
+    <!-- IF BLOG HAS SUBPOST, THIS IS SUB POST SIDE BAR -->
+    <div id="subpost-sidebar" class="mb-8">
+      <h2 class="px-4 mt-4 mb-2"> Subpost Navigation </h2>
+      { (hasChildPosts || isCurrentSubpost) && (
+          <SubpostsSidebar parentId={ isCurrentSubpost ? getParentId(currentPostId) : currentPostId } className="w-64"/>
+        )
+      } 
+    </div>
+
     <!-- START TABLE OF CONTENTS -->
-  <div class="w-[280px] lg:p-2 hidden xl:block">
     <div class="sticky top-4 shrink-0">
       {
         tocSections.length > 0 && (
@@ -216,17 +220,9 @@ const tocSections = await getTOCSections(currentPostId)
       } 
     </div>
   </div>
-  <!-- END TABLE OF CONTENTS -->
+  <!-- END OF SIDE BAR -->
 </div>
-
-
-
 </div>
-
-
-
-
-
 
   <Button
     variant="outline"

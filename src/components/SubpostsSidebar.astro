@@ -37,11 +37,13 @@ const subpostsWithReadingTime = await Promise.all(
     readingTime: await getPostReadingTime(subpost.id),
   })),
 )
+
+// class="sticky top-20 col-start-3 row-span-1 mr-auto ml-8 hidden h-[calc(100vh-5rem)] max-w-md xl:block"
 ---
 
 <div
   id="subposts-sidebar-container"
-  class="sticky top-20 col-start-3 row-span-1 mr-auto ml-8 hidden h-[calc(100vh-5rem)] max-w-md xl:block"
+  class="sticky hidden max-w-md xl:block"
 >
   <ScrollArea
     client:load
