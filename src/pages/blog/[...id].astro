@@ -203,8 +203,7 @@ const tocSections = await getTOCSections(currentPostId)
   <div class="w-[280px] lg:px-2 hidden xl:block">
     
     <!-- IF BLOG HAS SUBPOST, THIS IS SUB POST SIDE BAR -->
-    <div id="subpost-sidebar" class="mb-8">
-      <h2 class="px-4 mt-4 mb-2"> Subpost Navigation </h2>
+    <div id="subpost-sidebar">
       { (hasChildPosts || isCurrentSubpost) && (
           <SubpostsSidebar parentId={ isCurrentSubpost ? getParentId(currentPostId) : currentPostId } className="w-64"/>
         )

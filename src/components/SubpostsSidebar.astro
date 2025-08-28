@@ -41,10 +41,11 @@ const subpostsWithReadingTime = await Promise.all(
 // class="sticky top-20 col-start-3 row-span-1 mr-auto ml-8 hidden h-[calc(100vh-5rem)] max-w-md xl:block"
 ---
 
-<div
-  id="subposts-sidebar-container"
-  class="sticky hidden max-w-md xl:block"
->
+<div id="subposts-sidebar-container" class="border rounded-xl mb-4 hidden max-w-md xl:block">
+  <div>
+      <h2 class="px-4 mt-4 mb-2"> Subpost Navigation </h2>
+  </div>
+
   <ScrollArea
     client:load
     className="flex max-h-[calc(100vh-8rem)] flex-col overflow-y-auto"
