@@ -9,6 +9,9 @@ const projects = await getAllProjects()
 import AuthorCard from '@/components/AuthorCard.astro'
 import { getAllAuthors } from '@/lib/data-utils'
 
+import teluIcon from '../assets/img/logotelu.jpg'
+import unsIcon from '../assets/img/logouns.jpg'
+
 const authors = await getAllAuthors()
 ---
 
@@ -16,7 +19,7 @@ const authors = await getAllAuthors()
   <PageHead slot="head" title="About" />
   <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
 
-  <section>
+  <section>``
     <h1 class="mb-4 text-2xl font-medium">Meet the Author</h1>
     <div class="mb-4">
       {
@@ -67,7 +70,7 @@ const authors = await getAllAuthors()
       <div class="mb-4" id="univ-1">
           <div class="flex flex-row justify-between">
           <div class="gap-4 flex flex-row w-full">
-            <img class="border size-12" src="src/assets/img/logotelu.jpg">
+            <img class="size-12 rounded-lg" src={teluIcon.src}>
             <div> 
               <h1 class="">Telkom University</h1>
               <h2>D3 Technology Computer</h2>
@@ -86,7 +89,7 @@ const authors = await getAllAuthors()
       <div class="mb-4" id="univ-2">
         <div class="flex flex-row justify-between">
           <div class="gap-4 flex flex-row w-full">
-            <img class="border size-12" src="src/assets/img/logouns.jpg">
+            <img class="size-12 rounded-lg" src={unsIcon.src}>
             <div> 
               <h1 class="">Sebelas Maret University</h1>
               <h2>Biology Education (unfinished degree / dropout)</h2>
