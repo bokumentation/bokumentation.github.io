@@ -1,0 +1,122 @@
+---
+title: 'Simple Setup for Arduino-esp32 as ESP-IDF Components'
+description: 'Simple Setup for Arduino-esp32 as ESP-IDF Components'
+date: 2025-09-13
+tags: ['Embedded','ESP32']
+---
+
+# Simple Setup for Arduino-esp32 as ESP-IDF Components
+
+This is a straighforward setup for integrating **Arduino-esp32** as an ESP-IDF components. An **internet connection** is required for automatic download of managed components. For other ESP32 chip types, refer to the **"Setting Up for Different ESP32 Chips"** section below.
+
+**Features:**
+- Straightforward setup for ESP32 (just clone then build and flash)
+- Support VS Code IntelliSense or Clangd extension.
+
+**You need:**
+- Installed ESP-IDF on your computer
+
+---
+## Get Started
+Make sure you have to run ESP-IDF on your terminal. Then follow these steps.
+1. **Clone and navigate** to the example folder.
+    ```bash
+    git clone https://github.com/bokumentation/ESP32-Arduino-as-Components-Starter.git
+    cd ESP32-Arduino-as-Components-Starter/examples/arduino_style
+    ```
+2. **Build, flash, then monitor.**
+    ```bash
+    idf.py build
+    idf.py -p <PORT> flash monitor
+    ```
+    >
+    > Replace <PORT> with your ESP32's actual serial port (e.g., `COM3` on Windows or `/dev/ttyUSB0` on Linux). We can find this in device manager.
+3. Now your LED should blinking.
+
+---
+## Setting Up for Different ESP32 Chips
+If you are using a chip other than the standard ESP32, you will need to perform some additional configuration before building.
+1. **Delete** the `idf_component.yml` in the `main` folder.
+2. **Set the target chip** by use `idf.py set-target` to specify your chip type (e.g., `esp32c3`, `esp32s3`).
+    ```bash
+    idf.py set-target <your_esp_type>
+    ```
+3. **Adjust menuconfig** setting by running `idf.py menuconfig` and navigate to the following options **step by step**:
+    - `Component config` -> `FreeRTOS` -> `Kernel` -> `configTICK_RATE_HZ`. Set it to 1000. This resolves potential FreeRTOS tick rate conflicts. Save then exit.
+        > Note: Configure this first before add dependency.
+    - Then we can add Arduino as a components:
+        ```bash
+        idf.py add-dependency "espressif/arduino-esp32^3.3.0"
+        ```
+    - Open `idf.py menuconfig` again.
+        - Navigate to `Arduino options` -> `Autostart Arduino setup and loop boot`. Enable this to use `void setup()` and `loop()` like in Arduino IDE. For more information, see the _Choosing Programming Style_ section below.
+        - Navigate to `Component config` -> `Diagnostics`-> `Use external log wrapper` and enable it. This fixes undefined reference errors related to logging functions. Save then exit.
+        - (Optional) Go to `Component config` -> `mbedTLS` -> `TLS Key Exchange Methods` -> `Enable pre-shared-key ciphersuites` and then check `Enable PSK based ciphersuite modes`. Save and Quit.  
+            > Note: Actually you can skip this step. It just remove some compiler warning.
+    - After making these changes, save and exit `menuconfig`.
+    
+4. **Build and Flash:** Now we can build and flash the project to your new target chip.
+    ```bash
+    idf.py build
+    idf.py -p <PORT> flash monitor
+    ```
+    > Replace <PORT> with your ESP32's actual serial port (e.g., `COM3` on Windows or `/dev/ttyUSB0` on Linux). We can find this in device manager.
+
+---
+## Choosing Programming Style
+
+We can write our code in either the familiar Arduino style or the native ESP-IDF style.
+
+### Arduino IDE Style
+This style uses the standard `setup()` and `loop()` functions. To enable this, we must enable `Autostart Arduino setup and loop boot` in `idf.py menuconfig` under the `Arduino options` section.
+
+```cpp
+// file: main.cpp
+#include "Arduino.h"
+
+void setup(){
+    Serial.begin(115200);
+    while(!Serial){
+        ; // Wait for serial port to connect
+    }
+    Serial.println("Starting up...");
+}
+
+void loop(){
+    Serial.println("Looping...");
+    delay(1000);
+}
+```
+
+
+### ESP-IDF Style
+This style uses the `app_main()` function as the entry point. To use this, simply disable `Autostart Arduino setup and loop boot` in `idf.py menuconfig`.
+```cpp
+// file: main.cpp
+#include "Arduino.h"
+
+extern "C" void app_main()
+{
+    initArduino(); // Initialize the Arduino core
+
+    // Arduino-like setup()
+    Serial.begin(115200);
+    while(!Serial){
+        ; // Wait for serial port to connect
+    }
+
+    // Arduino-like loop()
+    while(true){
+        Serial.println("Looping...");
+        delay(1000); // Wait for 1 second
+    }
+
+    // WARNING: If the program reaches the end of app_main(), the MCU will restart.
+}
+```
+
+
+
+
+
+
