@@ -1,0 +1,82 @@
+---
+title: 'ESP-IDF Get Started'
+description: 'ESP-IDF Get Started'
+date: 2025-09-16
+tags: ['Embedded','ESP32', 'ESP-IDF']
+---
+import Callout from '@/components/Callout.astro'
+
+This is tutorial for first time using ESP-IDF.
+
+## Requirements
+You need
+- An internet connection
+- ESP-IDF V5.5 Offline Installer ([download](https://dl.espressif.com/dl/esp-idf/))
+- VS Code ([download](https://code.visualstudio.com/download)) with
+    - C/CXX Extensions by Microsoft ([download](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)) or Clangd
+- CH340 Driver ([download](https://www.wch-ic.com/downloads/ch341ser_zip.html))
+
+---
+
+## 1. Install ESP-IDF and CH340 Driver
+After you downloaded the installer. Just install it like other program. Just make sure the ESP-IDF installation path are on `C:\Espressif`. You can check the folder in C: directories after you finished the installer.
+
+## 2. First Blinking LED Project
+So this is your first blinking LED project. What you need:
+- An internet connection
+- An ESP32 Devkit Development Board (just use from stas-rg lab)
+- LED 3.3v
+- USB Data Cable (make sure it is can transfer data)
+- Breadboard
+
+### The hardware
+- Connect the `D2` or `Digital Pin 2` of ESP32 Devkit to the `+` side of the LED. 
+- The `-` side of LED you can connect to the `GND` pin on ESP32.
+
+### Get Started, The Firmware
+
+<Callout title="About project folder" variant="important">
+Make sure you have created `DEV` folder inside your `Documents`. We will use this as standard project path. 
+Remember, to recheck the path. Don't use `OneDrive` documents folder.
+</Callout>
+
+1. Run the ESP-IDF from powershell (just type ESP-IDF on windows start menu). After it starts. Open `file explorer`, Copy the path from our `DEV` folder. Then open the ESP-IDF terminal and use `cd` command to navigate `\DEV\` folder. Here the example.
+    ```bash
+    cd <the dev folder path>
+    ```
+2. Clone my repository by using `git` command.
+    ```bash
+    git clone https://github.com/bokumentation/ESP32-Arduino-as-Components-Starter.git
+    ```
+3. You will see folder called `ESP32-Arduino-as-Components-Starter`. We need to navigate to the example by doing this commands.
+    ```bash
+    cd ESP32-Arduino-as-Components-Starter/examples/esp32_arduino
+    ```
+4. Plug your ESP32 to your computer. Open `device manager` and look up for PORT or COM section. You will see the COM number of your ESP32.
+5. Now we can build by using this command.
+    ```bash
+    idf.py build
+    ```
+6. It will take time. You need to be patience.
+7. After the build succesfull. Now we can flash then monitor.
+    ```bash
+    idf.py build
+    ```
+    ```bash
+    idf.py -p <PORT> flash monitor
+    ```
+<Callout title="About <PORT>" variant="important">
+Replace `<PORT>` with your ESP32's actual serial port (e.g., `COM3` on Windows or `/dev/ttyUSB0` on Linux). We can find this in device manager.
+</Callout>
+8. Now you LED should be blinking.
+
+---
+
+## Edit in VS Code
+If you wanna use vscode. Just type `code .` to open your project into the vscode. Remember to open the project from the ESP-IDF terminal like this.
+```bash
+code .
+```
+
+You can use `auto completion` or `show suggestion` feature by pressing `ctrl + space`.
+
