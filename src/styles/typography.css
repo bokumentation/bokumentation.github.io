@@ -31,7 +31,7 @@
     @apply [&>link[rel="stylesheet"]+*]:mt-0! [&>link[rel="stylesheet"]+*>*]:mt-0!;
 
     :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply text-foreground/80 my-5;
+      @apply text-foreground my-5;
     }
 
     :where(h1, h2, h3, h4, h5, h6):not(
@@ -70,22 +70,22 @@
     }
 
     :where(ul):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply marker:text-foreground/30 my-5 ml-6 list-disc [&>li]:mt-2;
+      @apply marker:text-foreground my-5 ml-6 list-disc [&>li]:mt-2;
     }
 
     :where(ol):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply marker:text-foreground/30 my-5 ml-6 list-decimal [&>li]:mt-2;
+      @apply marker:text-foreground my-5 ml-6 list-decimal [&>li]:mt-2;
       @apply [&[type='A']]:list-[upper-alpha] [&[type='I']]:list-[upper-roman] [&[type='a']]:list-[lower-alpha] [&[type='i']]:list-[lower-roman];
     }
 
     :where(li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply text-foreground/80 pl-2 [&>p]:my-0;
+      @apply text-foreground pl-2 [&>p]:my-0;
     }
 
     :where(ul ul, ol ol, ul ol, ol ul):not(
         :where([class~='not-prose'], [class~='not-prose'] *)
       ) {
-      @apply marker:text-foreground/30 my-2 ml-6;
+      @apply marker:text-foreground my-2 ml-6;
     }
 
     :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
@@ -121,7 +121,7 @@
     }
 
     :where(td):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply text-foreground/80 small fix-margin px-4 py-2 align-top break-words;
+      @apply text-foreground small fix-margin px-4 py-2 align-top break-words;
       @apply text-left [&[align=center]]:text-center [&[align=right]]:text-right;
     }
 
@@ -146,7 +146,7 @@
     :where(.katex-display):not(
         :where([class~='not-prose'], [class~='not-prose'] *)
       ) {
-      @apply text-foreground/80 my-6 overflow-x-auto overflow-y-hidden py-2 tracking-normal;
+      @apply text-foreground my-6 overflow-x-auto overflow-y-hidden py-2 tracking-normal;
     }
   }
 }
