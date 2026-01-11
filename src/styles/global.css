@@ -53,13 +53,13 @@
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0% 0 0);
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: #E5E5E5;
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: #0A0A0A;
   --accent: #E5E5E5;
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -68,8 +68,8 @@
 }
 
 [data-theme='dark'] {
-  --background: #101010;
-  --foreground: #EDEDED;
+  --background: #0A0A0A;
+  --foreground: #E3E3E3;
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: #262626;
