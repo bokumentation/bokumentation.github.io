@@ -65,7 +65,7 @@ export default defineConfig({
     plugins: [tailwindcss() as any],
   },
   server: {
-    port: 1234,
+    port: 8000,
     host: true,
   },
   devToolbar: {
