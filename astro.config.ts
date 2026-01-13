@@ -24,7 +24,7 @@ export default defineConfig({
   outDir: './dist',
   integrations: [
     astroExpressiveCode({
-      themes: ['github-light-default', 'dark-plus'],
+      themes: ['github-light', 'github-dark'],
       themeCssSelector: (theme) => `[data-theme="${theme.type}"]`,
       useDarkModeMediaQuery: false,
       defaultProps: {
