@@ -68,7 +68,7 @@
 }
 
 [data-theme='dark'] {
-  --background: #0A0A0A;
+  --background: #0f0f0f;
   --foreground: #ffffff;
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
