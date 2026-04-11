@@ -2,24 +2,20 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import PageHead from '@/components/PageHead.astro'
 import Layout from '@/layouts/Layout.astro'
-import { getAllProjects } from '@/lib/data-utils'
+import { getAllProjects, getAllAuthors, getAllEducation } from '@/lib/data-utils'
+import AuthorCard from '@/components/AuthorCard.astro'
+import EducationCard from '@/components/EducationCard.astro'
 
 const projects = await getAllProjects()
-
-import AuthorCard from '@/components/AuthorCard.astro'
-import { getAllAuthors } from '@/lib/data-utils'
-
-import teluIcon from '../assets/img/logotelu.jpg'
-import unsIcon from '../assets/img/logouns.jpg'
-
 const authors = await getAllAuthors()
+const education = await getAllEducation()
 ---
 
-<Layout class="max-w-3xl">
+<Layout class="max-w-3xl px-4 sm:px-6">
   <PageHead slot="head" title="About" />
   <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
 
-  <section>
+  <section class="mb-8">
     <h1 class="mb-4 text-2xl font-medium">Meet the Author</h1>
     <div class="mb-4">
       {
@@ -36,56 +32,54 @@ const authors = await getAllAuthors()
         )
       }
     </div>
-    <div class="prose">
+    <div class="prose prose-sm sm:prose-base">
       <p class="text-muted-foreground mt-0">The Original Name</p>
     </div>
   </section>
 
-  <h1 class="text-2xl font-medium">Behind the Scene</h1>
-  <div class="prose mb-4">
-    <p class="text-muted-foreground mt-0">Cihuy</p>
-  </div>
+  <section class="mb-8">
+    <h2 class="mb-4 text-2xl font-medium">Behind the Scene</h2>
+    <div class="prose prose-sm sm:prose-base mb-4">
+      <p class="text-muted-foreground mt-0">
+        This website is built with Astro, a modern static site generator that delivers fast, content-focused websites. 
+        The project leverages Astro's islands architecture for optimal performance and uses Tailwind CSS v4 for styling.
+      </p>
+      <p class="text-muted-foreground">
+        The site features a content collection system for managing blog posts, projects, authors, and now education history. 
+        All content is written in Markdown/MDX and automatically optimized for production builds.
+      </p>
+      <p class="text-muted-foreground">
+        Key technologies used in this project include:
+      </p>
+      <ul class="text-muted-foreground">
+        <li><strong>Astro</strong> - Static site generation and component framework</li>
+        <li><strong>Tailwind CSS v4</strong> - Utility-first CSS framework</li>
+        <li><strong>TypeScript</strong> - Type-safe JavaScript development</li>
+        <li><strong>MDX</strong> - Markdown with JSX components</li>
+        <li><strong>React components</strong> - Interactive UI elements</li>
+        <li><strong>Lucide Icons</strong> - Beautiful, consistent iconography</li>
+      </ul>
+      <p class="text-muted-foreground">
+        The site is deployed on GitHub Pages and automatically builds with every push to the main branch, 
+        ensuring the latest content is always available to visitors.
+      </p>
+    </div>
+  </section>
 
-  <section>
-    <div class="min-w-full border border-accent p-4 rounded-xl">
+  <section class="mb-8">
+    <div class="border border-accent p-4 sm:p-6 rounded-xl overflow-hidden">
       <h2 class="mb-4 text-2xl font-medium">Education Background</h2>
-      <div class="mb-4" id="univ-1">
-          <div class="flex flex-row justify-between">
-          <div class="gap-4 flex flex-row w-full">
-            <img class="size-12 rounded-lg" src={teluIcon.src}>
-            <div> 
-              <h1 class="">Telkom University</h1>
-              <h2>D3 Technology Computer</h2>
-            </div>
+      {
+        education.length > 0 ? (
+          <div class="space-y-4">
+            {education.map((edu) => (
+              <EducationCard education={edu} />
+            ))}
           </div>
-          <p>202x-202x</p>
-        </div>
-        <div class="text-muted-foreground mt-2 flex flex-col">
-          <p>To-do-list</p>
-          <p>To-do-list</p>
-          <p>To-do-list</p>
-          <p>To-do-list</p>
-        </div>
-      </div>
-
-      <div class="mb-4" id="univ-2">
-        <div class="flex flex-row justify-between">
-          <div class="gap-4 flex flex-row w-full">
-            <img class="size-12 rounded-lg" src={unsIcon.src}>
-            <div> 
-              <h1 class="">Sebelas Maret University</h1>
-              <h2>Biology Education (unfinished degree / dropout)</h2>
-            </div>
-          </div>
-          <p>202x-202x</p>
-        </div>
-        <div class="text-muted-foreground mt-2 flex flex-col">
-          <p>To-do-list</p>
-          <p>To-do-list</p>
-          <p>To-do-list</p>
-          <p>To-do-list</p>
-        </div>
-      </div>
+        ) : (
+          <p class="text-muted-foreground text-center">No education information available.</p>
+        )
+      }
     </div>
   </section>
 </Layout>

@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './utilities.css';
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
@@ -24,6 +25,9 @@
 
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
 
   --color-additive: var(--additive);
   --color-additive-foreground: var(--additive-foreground);
@@ -52,34 +56,57 @@
 }
 
 :root {
+  --background: #FFFFFF;
   --background: oklch(1 0 0);
+  --foreground: #000000;
   --foreground: oklch(0% 0 0);
+  --primary: #333333;
   --primary: oklch(0.205 0 0);
+  --primary-foreground: #FAFAFA;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: #E5E5E5;
+  --secondary-foreground: #333333;
   --secondary-foreground: oklch(0.205 0 0);
+  --muted: #F7F7F7;
   --muted: oklch(0.97 0 0);
   --muted-foreground: #0A0A0A;
   --accent: #E5E5E5;
+  --accent-foreground: #333333;
   --accent-foreground: oklch(0.205 0 0);
+  --card: #FFFFFF;
+  --card: oklch(1 0 0);
+  --card-foreground: #000000;
+  --card-foreground: oklch(0% 0 0);
+  --destructive: #DC2626;
   --destructive: oklch(0.577 0.245 27.325);
+  --border: #E8E8E8;
   --border: oklch(0.922 0 0);
+  --ring: #B3B3B3;
   --ring: oklch(0.708 0 0);
 }
 
 [data-theme='dark'] {
   --background: #0f0f0f;
   --foreground: #ffffff;
+  --primary: #E8E8E8;
   --primary: oklch(0.922 0 0);
+  --primary-foreground: #333333;
   --primary-foreground: oklch(0.205 0 0);
   --secondary: #262626;
+  --secondary-foreground: #FAFAFA;
   --secondary-foreground: oklch(0.985 0 0);
   --muted: #262626;
   --muted-foreground: #c0c0c0;
   --accent: #262626;
+  --accent-foreground: #FAFAFA;
   --accent-foreground: oklch(0.985 0 0);
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --destructive: #DC2626;
   --destructive: oklch(0.704 0.191 22.216);
+  --border: rgba(255, 255, 255, 0.1);
   --border: oklch(1 0 0 / 10%);
+  --ring: #8C8C8C;
   --ring: oklch(0.556 0 0);
 }
 

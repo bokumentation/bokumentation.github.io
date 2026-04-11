@@ -9,7 +9,6 @@ import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 import expressiveCode from 'astro-expressive-code'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeKatex from 'rehype-katex'
-import rehypePrettyCode from 'rehype-pretty-code'
 import remarkEmoji from 'remark-emoji'
 import remarkMath from 'remark-math'
 
@@ -70,7 +69,8 @@ export default defineConfig({
     icon(),
   ],
   vite: {
-    plugins: [tailwindcss() as any],
+    // @ts-expect-error - Vite version mismatch between Astro and @tailwindcss/vite
+    plugins: [tailwindcss()],
   },
   server: {
     port: 8000,
@@ -91,15 +91,6 @@ export default defineConfig({
       ],
       rehypeHeadingIds,
       rehypeKatex,
-      [
-        rehypePrettyCode,
-        {
-          theme: {
-            light: 'github-light',
-            dark: 'github-dark',
-          },
-        },
-      ],
     ],
     remarkPlugins: [remarkMath, remarkEmoji],
   },

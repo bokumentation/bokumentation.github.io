@@ -50,4 +50,24 @@ const projects = defineCollection({
     }),
 })
 
-export const collections = { blog, authors, projects }
+const education = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/education' }),
+  schema: ({ image }) =>
+    z.object({
+      institution: z.string(),
+      degree: z.string(),
+      field: z.string().optional(),
+      startDate: z.coerce.date(),
+      endDate: z.coerce.date().optional(),
+      location: z.string().optional(),
+      gpa: z.string().optional(),
+      description: z.string().optional(),
+      achievements: z.array(z.string()).optional(),
+      courses: z.array(z.string()).optional(),
+      logo: image().optional(),
+      current: z.boolean().optional().default(false),
+      order: z.number().optional(),
+    }),
+})
+
+export const collections = { blog, authors, projects, education }

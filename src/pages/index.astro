@@ -11,10 +11,10 @@ import { getRecentPosts } from '@/lib/data-utils'
 const blog = await getRecentPosts(SITE.featuredPostCount)
 ---
 
-<Layout class="max-w-3xl">
+<Layout class="page-container max-w-3xl">
   <PageHead slot="head" title="Home" />
-  <section class="mt-6 flex flex-col space-y-1 text-left">
-    <h2 class="text-4xl leading-none font-semibold">Hai there👋</h2>
+  <section class="mt-6 flex flex-col space-y-1 text-left fade-in">
+    <h2 class="text-4xl leading-none font-semibold">Hai there<span class="emoji">👋</span></h2>
     <h3 class="text-foreground text-xl">Welcome to the Bokumentation!</h3>
     <p class="text-foreground mt-4 text-sm">
       From documentation become bokumentation because of ibe. I love doing
@@ -51,7 +51,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
     <div class="flex justify-center">
       <Link
         href="/blog"
-        class={buttonVariants({ variant: 'ghost' }) + ' group'}
+        class={`${buttonVariants({ variant: 'ghost' })} group`}
       >
         See all posts <span class="ml-1.5 group-hover:translate-x-1"
           >&rarr;</span

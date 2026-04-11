@@ -1,0 +1,142 @@
+---
+import { Badge } from '@/components/ui/badge'
+import { formatDate } from '@/lib/utils'
+import { Icon } from 'astro-icon/components'
+import { Image } from 'astro:assets'
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  education: CollectionEntry<'education'>
+  showDetails?: boolean
+}
+
+const { education, showDetails = true } = Astro.props
+const { institution, degree, field, startDate, endDate, location, gpa, description, achievements, courses, logo, current } = education.data
+---
+
+<div
+  class="hover:bg-secondary/50 rounded-xl border-accent border px-4 py-4 transition-colors duration-300 ease-in-out"
+  id={`education-${education.id}`}
+>
+  <div class="flex flex-col gap-4">
+    <!-- HEADER WITH LOGO AND BASIC INFO -->
+    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+      <div class="flex flex-row items-start gap-4">
+        <!-- LOGO -->
+        {
+          logo && (
+            <div class="flex-shrink-0">
+              <Image
+                src={logo}
+                alt={`${institution} logo`}
+                width={48}
+                height={48}
+                class="size-12 rounded-lg object-cover"
+              />
+            </div>
+          )
+        }
+        
+        <!-- INSTITUTION AND DEGREE INFO -->
+        <div class="flex-grow">
+          <h3 class="text-lg font-medium">
+            {institution}
+          </h3>
+          <div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2">
+            <p class="text-foreground/80 text-sm">
+              {degree}
+              {field && ` • ${field}`}
+            </p>
+            {
+              location && (
+                <span class="text-muted-foreground flex items-center gap-1 text-xs">
+                  <Icon name="lucide:map-pin" class="size-3" />
+                  {location}
+                </span>
+              )
+            }
+          </div>
+        </div>
+      </div>
+      
+      <!-- DATE RANGE -->
+      <div class="flex-shrink-0 mt-2 sm:mt-0">
+        <p class="text-muted-foreground text-sm">
+          <span class="flex items-center gap-1">
+            <Icon name="lucide:calendar" class="size-3" />
+            <span class="whitespace-nowrap">
+              {formatDate(startDate)}
+              {endDate ? ` → ${formatDate(endDate)}` : current ? ' → Present' : ''}
+            </span>
+          </span>
+        </p>
+      </div>
+    </div>
+    
+    <!-- GPA BADGE IF AVAILABLE -->
+    {
+      gpa && (
+        <div class="flex flex-wrap gap-2">
+          <Badge variant="secondary" className="gap-1">
+            <Icon name="lucide:award" class="size-3" />
+            GPA: {gpa}
+          </Badge>
+        </div>
+      )
+    }
+    
+    <!-- DESCRIPTION -->
+    {
+      description && showDetails && (
+        <p class="text-foreground/80 text-sm">
+          {description}
+        </p>
+      )
+    }
+    
+    <!-- ACHIEVEMENTS -->
+    {
+      achievements && achievements.length > 0 && showDetails && (
+        <div class="space-y-1">
+          <h4 class="text-sm font-medium">Achievements</h4>
+          <ul class="text-foreground/80 space-y-1 text-sm">
+            {achievements.map((achievement: string) => (
+              <li class="flex items-start gap-2">
+                <Icon name="lucide:check-circle" class="size-3 mt-0.5 text-green-500" />
+                <span>{achievement}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    
+    <!-- COURSES -->
+    {
+      courses && courses.length > 0 && showDetails && (
+        <div class="space-y-1">
+          <h4 class="text-sm font-medium">Relevant Courses</h4>
+          <div class="flex flex-wrap gap-2">
+            {courses.map((course: string) => (
+              <Badge variant="outline">
+                {course}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      )
+    }
+    
+    <!-- STATUS BADGE -->
+    {
+      current && (
+        <div class="flex justify-end">
+          <Badge variant="default" className="gap-1">
+            <Icon name="lucide:clock" class="size-3" />
+            Current
+          </Badge>
+        </div>
+      )
+    }
+  </div>
+</div>

@@ -96,11 +96,28 @@
     :where(blockquote):not(
         :where([class~='not-prose'], [class~='not-prose'] *)
       ) {
-      @apply [&_*]:text-muted-foreground/80 small my-6 border-l-2 pl-6;
+      margin: 1.5rem 0;
+      padding-left: 1.5rem;
+      border-left: 2px solid;
+      border-color: #8b5cf6; /* Purple-500 fallback */
+      border-color: oklch(0.623 0.214 305.5); /* Purple oklch */
+      color: #6b7280; /* Gray-500 fallback */
+      color: oklch(0.551 0.027 264.364); /* Muted foreground */
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+    }
+    
+    :where(blockquote *):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+      color: inherit;
     }
 
     :where(hr):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply my-8 border-t;
+      margin: 2rem 0;
+      height: 1px;
+      border: none;
+      border-top: 1px solid;
+      border-color: var(--border);
+      background: none;
     }
 
     :where(table):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
