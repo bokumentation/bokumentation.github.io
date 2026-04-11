@@ -2,19 +2,21 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import PageHead from '@/components/PageHead.astro'
 import ProjectCard from '@/components/ProjectCard.astro'
+import SearchBar from '@/components/SearchBar.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getAllProjects } from '@/lib/data-utils'
 
 const projects = await getAllProjects()
-
-import { getAllAuthors } from '@/lib/data-utils'
-
-const authors = await getAllAuthors()
 ---
 
 <Layout class="max-w-3xl">
-  <PageHead slot="head" title="About" />
-  <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
+  <PageHead slot="head" title="Projects" />
+  <Breadcrumbs items={[{ label: 'Projects', icon: 'lucide:briefcase' }]} />
+
+  <!-- Search Bar for Projects -->
+  <div class="my-6">
+    <SearchBar pageType="project" />
+  </div>
 
   <div>
     <h2 class="mb-4 text-2xl font-medium">Project lists</h2>

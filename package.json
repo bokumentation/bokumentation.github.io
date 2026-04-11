@@ -10,7 +10,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "prettier": "prettier --write **/*.{ts,tsx,css,astro} --ignore-path .gitignore",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "search:index": "node scripts/generate-search-index.js",
+    "build:with-search": "npm run search:index && npm run build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
@@ -30,6 +32,8 @@
     "astro-icon": "^1.1.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "fuse.js": "^7.3.0",
+    "gray-matter": "^4.0.3",
     "lucide-react": "^0.469.0",
     "patch-package": "^8.0.0",
     "radix-ui": "^1.3.4",

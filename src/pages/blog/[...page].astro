@@ -3,6 +3,7 @@ import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import PageHead from '@/components/PageHead.astro'
 import PaginationComponent from '@/components/ui/pagination'
+import SearchBar from '@/components/SearchBar.astro'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import { getAllPosts, groupPostsByYear } from '@/lib/data-utils'
@@ -31,6 +32,11 @@ const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
       { label: `Page ${page.currentPage}`, icon: 'lucide:book-copy' },
     ]}
   />
+
+  <!-- Search Bar for Blog -->
+  <div class="my-6">
+    <SearchBar pageType="blog" />
+  </div>
 
   <div class="flex min-h-[calc(100vh-18rem)] flex-col gap-y-8">
     {

@@ -2,11 +2,10 @@
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import PageHead from '@/components/PageHead.astro'
 import Layout from '@/layouts/Layout.astro'
-import { getAllProjects, getAllAuthors, getAllEducation } from '@/lib/data-utils'
+import { getAllAuthors, getAllEducation } from '@/lib/data-utils'
 import AuthorCard from '@/components/AuthorCard.astro'
 import EducationCard from '@/components/EducationCard.astro'
 
-const projects = await getAllProjects()
 const authors = await getAllAuthors()
 const education = await getAllEducation()
 ---

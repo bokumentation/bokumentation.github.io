@@ -1,0 +1,421 @@
+---
+import { getSearchPlaceholder } from '@/lib/search-utils'
+
+interface Props {
+  pageType?: 'blog' | 'project'
+  className?: string
+}
+
+const { pageType, className = '' } = Astro.props
+const placeholder = getSearchPlaceholder(pageType)
+---
+
+<div class={`search-container ${className}`}>
+  <!-- Search bar (always visible on both desktop and mobile) -->
+  <div class="flex items-center justify-center w-full">
+    <div class="relative w-full max-w-md">
+      <input
+        type="search"
+        id="search-input"
+        placeholder={placeholder}
+        class="w-full pl-10 pr-10 py-2.5 text-sm bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
+        aria-label={placeholder}
+        autocomplete="off"
+      />
+      <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+      <button
+        id="clear-search"
+        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground hidden transition-opacity"
+        aria-label="Clear search"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Search results container - centered and proportional to search box -->
+  <div
+    id="search-results"
+    class="hidden absolute left-1/2 transform -translate-x-1/2 top-full mt-2 w-full max-w-md bg-background border border-border rounded-lg shadow-xl z-50 max-h-80 overflow-y-auto"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+    <!-- Results will be populated by JavaScript -->
+    <div id="search-results-content" class="p-1">
+      <!-- Results will be inserted here -->
+    </div>
+    <div id="search-no-results" class="hidden p-4 text-center text-muted-foreground text-sm">
+      No results found
+    </div>
+    <div id="search-loading" class="hidden p-4 text-center text-muted-foreground text-sm">
+      <div class="flex items-center justify-center gap-2">
+        <div class="w-2 h-2 bg-muted-foreground rounded-full animate-pulse"></div>
+        <div class="w-2 h-2 bg-muted-foreground rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+        <div class="w-2 h-2 bg-muted-foreground rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+      </div>
+    </div>
+    <div id="search-error" class="hidden p-4 text-center text-sm text-destructive">
+      Search temporarily unavailable
+    </div>
+  </div>
+</div>
+
+<style>
+  .search-container {
+    position: relative;
+  }
+
+  #search-results {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  #search-results::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  #search-results::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  #search-results::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 3px;
+  }
+
+  /* Animation for mobile search expansion */
+  #mobile-search-expanded {
+    animation: slideDown 0.2s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  import { initSearch, search, debounce, isValidPageType } from '@/lib/search-utils'
+
+  // Global state that persists across navigation
+  let searchInstance: (() => void) | null = null
+  let isSearchInitialized = false
+
+  // Initialize search system
+  async function initializeSearch() {
+    console.log('🔍 Initializing search system...')
+    
+    // DOM Elements with proper TypeScript type assertions
+    const searchInput = document.getElementById('search-input') as HTMLInputElement | null
+    const clearSearch = document.getElementById('clear-search') as HTMLButtonElement | null
+    const searchResults = document.getElementById('search-results') as HTMLDivElement | null
+    const searchResultsContent = document.getElementById('search-results-content') as HTMLDivElement | null
+    const searchNoResults = document.getElementById('search-no-results') as HTMLDivElement | null
+    const searchLoading = document.getElementById('search-loading') as HTMLDivElement | null
+    const searchError = document.getElementById('search-error') as HTMLDivElement | null
+
+    if (!searchInput || !searchResults) {
+      console.error('❌ Search elements not found')
+      return
+    }
+
+    // State
+    let currentQuery = ''
+    let debouncedSearch: ((query: string) => void) | null = null
+
+    // Helper functions
+    function updateClearButton(query: string) {
+      if (clearSearch) {
+        clearSearch.classList.toggle('hidden', !query)
+      }
+    }
+
+    function clearSearchInput() {
+      if (searchInput) {
+        searchInput.value = ''
+        searchInput.focus()
+      }
+      
+      currentQuery = ''
+      updateClearButton('')
+      hideResults()
+    }
+
+    function showResults() {
+      if (searchResults) {
+        searchResults.classList.remove('hidden')
+      }
+    }
+
+    function hideResults() {
+      if (searchResults) {
+        searchResults.classList.add('hidden')
+      }
+    }
+
+    function showError() {
+      if (searchError) {
+        searchError.classList.remove('hidden')
+      }
+      if (searchLoading) searchLoading.classList.add('hidden')
+      if (searchNoResults) searchNoResults.classList.add('hidden')
+    }
+
+    function hideError() {
+      if (searchError) {
+        searchError.classList.add('hidden')
+      }
+    }
+
+    async function performSearch(query: string) {
+      if (!isSearchInitialized || !query) {
+        hideResults()
+        return
+      }
+
+      // Show loading state
+      if (searchResultsContent) searchResultsContent.innerHTML = ''
+      if (searchNoResults) searchNoResults.classList.add('hidden')
+      if (searchError) searchError.classList.add('hidden')
+      if (searchLoading) searchLoading.classList.remove('hidden')
+      showResults()
+
+      // Get page type from component attribute
+      const pageType = '${pageType}'
+
+      try {
+        // Perform search
+        const results = search(query, isValidPageType(pageType) ? pageType : undefined)
+
+        // Hide loading
+        if (searchLoading) searchLoading.classList.add('hidden')
+
+        if (results.length === 0) {
+          if (searchNoResults) searchNoResults.classList.remove('hidden')
+          return
+        }
+
+        // Render results
+        if (searchResultsContent) {
+          searchResultsContent.innerHTML = results.map(result => `
+            <a href="${result.item.url}" class="block p-3 hover:bg-muted rounded-lg transition-colors group" tabindex="0">
+              <div class="flex items-start justify-between">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="text-xs px-2 py-1 bg-muted rounded capitalize">${result.item.type}</span>
+                    ${result.item.tags?.slice(0, 2).map(tag => `
+                      <span class="text-xs px-2 py-1 bg-muted/50 rounded">${tag}</span>
+                    `).join('') || ''}
+                  </div>
+                  <h3 class="font-medium text-foreground group-hover:text-primary truncate">${result.item.title}</h3>
+                  <p class="text-sm text-muted-foreground mt-1 line-clamp-2">${result.item.description}</p>
+                  <div class="text-xs text-muted-foreground mt-2">
+                    ${new Date(result.item.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                  </div>
+                </div>
+                <svg class="w-4 h-4 text-muted-foreground group-hover:text-primary ml-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </div>
+            </a>
+          `).join('')
+        }
+
+        // Update aria-live region
+        if (searchResults) {
+          searchResults.setAttribute('aria-label', `Found ${results.length} results for "${query}"`)
+        }
+      } catch (error) {
+        console.error('Search error:', error)
+        showError()
+      }
+    }
+
+    function navigateResults(key: 'ArrowDown' | 'ArrowUp', results: NodeListOf<HTMLAnchorElement>) {
+      const currentIndex = Array.from(results).findIndex(el => el === document.activeElement)
+      let nextIndex = 0
+
+      if (key === 'ArrowDown') {
+        nextIndex = currentIndex < results.length - 1 ? currentIndex + 1 : 0
+      } else if (key === 'ArrowUp') {
+        nextIndex = currentIndex > 0 ? currentIndex - 1 : results.length - 1
+      }
+
+      results[nextIndex]?.focus()
+    }
+
+    // Load search index with retry logic
+    async function loadSearchIndex() {
+      try {
+        // Use relative path that works on both localhost and GitHub Pages
+        const baseUrl = window.location.origin
+        const searchIndexUrl = `${baseUrl}/search-index.json`
+        
+        console.log('📥 Loading search index from:', searchIndexUrl)
+        const response = await fetch(searchIndexUrl)
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+        }
+        
+        const indexData = await response.json()
+        await initSearch(indexData)
+        isSearchInitialized = true
+        console.log('✅ Search initialized with', indexData.items?.length || 0, 'items')
+        hideError()
+      } catch (error) {
+        console.error('❌ Failed to load search index:', error)
+        showError()
+        
+        // Retry after 3 seconds
+        setTimeout(() => {
+          console.log('🔄 Retrying search index load...')
+          loadSearchIndex()
+        }, 3000)
+      }
+    }
+
+    // Event handlers
+    function handleInput(e: Event) {
+      const target = e.target
+      if (target instanceof HTMLInputElement) {
+        currentQuery = target.value.trim()
+        updateClearButton(currentQuery)
+        if (debouncedSearch) {
+          debouncedSearch(currentQuery)
+        }
+      }
+    }
+
+    function handleKeydown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        hideResults()
+        if (searchInput) {
+          searchInput.blur()
+        }
+      } else if (e.key === 'Enter') {
+        // When Enter is pressed, navigate to first result if available
+        if (searchResultsContent && searchResults) {
+          const firstResult = searchResultsContent.querySelector('a')
+          if (firstResult && !searchResults.classList.contains('hidden')) {
+            e.preventDefault()
+            firstResult.click()
+          }
+        }
+      }
+    }
+
+    function handleFocus() {
+      if (currentQuery) {
+        showResults()
+      }
+    }
+
+    function handleClearClick() {
+      clearSearchInput()
+    }
+
+    function handleDocumentClick(e: MouseEvent) {
+      const target = e.target
+      if (target instanceof Node && searchResults && !searchResults.contains(target) && 
+          searchInput && !searchInput.contains(target)) {
+        hideResults()
+      }
+    }
+
+    function handleDocumentKeydown(e: KeyboardEvent) {
+      if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && searchResultsContent) {
+        const results = searchResultsContent.querySelectorAll('a')
+        if (results.length > 0) {
+          e.preventDefault()
+          navigateResults(e.key as 'ArrowDown' | 'ArrowUp', results)
+        }
+      }
+    }
+
+    // Initialize
+    debouncedSearch = debounce(performSearch, 300)
+    
+    // Load search index
+    await loadSearchIndex()
+
+    // Attach event listeners
+    searchInput.addEventListener('input', handleInput)
+    searchInput.addEventListener('keydown', handleKeydown)
+    searchInput.addEventListener('focus', handleFocus)
+    
+    if (clearSearch) {
+      clearSearch.addEventListener('click', handleClearClick)
+    }
+    
+    document.addEventListener('click', handleDocumentClick)
+    document.addEventListener('keydown', handleDocumentKeydown)
+
+    // Store cleanup function
+    return function cleanup() {
+      console.log('🧹 Cleaning up search event listeners')
+      searchInput.removeEventListener('input', handleInput)
+      searchInput.removeEventListener('keydown', handleKeydown)
+      searchInput.removeEventListener('focus', handleFocus)
+      
+      if (clearSearch) {
+        clearSearch.removeEventListener('click', handleClearClick)
+      }
+      
+      document.removeEventListener('click', handleDocumentClick)
+      document.removeEventListener('keydown', handleDocumentKeydown)
+    }
+  }
+
+  // Main initialization with navigation support
+  function initSearchWithNavigation() {
+    console.log('🚀 Setting up search with navigation support')
+    
+    // Clean up previous instance if exists
+    if (searchInstance && typeof searchInstance === 'function') {
+      searchInstance()
+    }
+    
+    // Initialize new search instance
+    initializeSearch().then(cleanup => {
+      if (cleanup) {
+        searchInstance = cleanup
+        console.log('✅ Search ready with navigation support')
+      }
+    }).catch(error => {
+      console.error('❌ Failed to initialize search:', error)
+    })
+  }
+
+  // Initialize when page loads
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSearchWithNavigation)
+  } else {
+    initSearchWithNavigation()
+  }
+
+  // Re-initialize on navigation (for Astro/Single Page App behavior)
+  window.addEventListener('popstate', () => {
+    console.log('🔄 Page navigation detected, reinitializing search...')
+    setTimeout(initSearchWithNavigation, 100) // Small delay to ensure DOM is ready
+  })
+
+  // Also reinitialize on Astro's view transitions if enabled
+  document.addEventListener('astro:after-swap', () => {
+    console.log('🔄 Astro view transition detected, reinitializing search...')
+    setTimeout(initSearchWithNavigation, 100)
+  })
+</script>
+
