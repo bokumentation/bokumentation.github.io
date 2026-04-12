@@ -20,7 +20,7 @@ const socialLinks: SocialLink[] = [
   author.data.github && { href: author.data.github, label: 'GitHub' },
   author.data.twitter && { href: author.data.twitter, label: 'Twitter' },
   author.data.linkedin && { href: author.data.linkedin, label: 'LinkedIn' },
-  author.data.mail && { href: `mailto:${author.data.mail}`, label: 'Email' },
+  import.meta.env.PUBLIC_CONTACT_EMAIL && { href: `mailto:${import.meta.env.PUBLIC_CONTACT_EMAIL}`, label: 'Email' },
 
   author.data.instagram && {
     href: `${author.data.instagram}`,

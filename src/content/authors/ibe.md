@@ -7,5 +7,4 @@ website: 'https://bokumentation.github.io'
 github: 'https://github.com/bokumentation'
 instagram: 'https://instagram.com/bokumentation'
 youtube: 'https://youtube.com/@bokumentation'
-mail: 'cihuy@gmail.com'
 ---

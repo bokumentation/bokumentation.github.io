@@ -45,7 +45,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
     label: 'Instagram',
   },
   {
-    href: 'mailto:no_email@gmail.com',
+    href: import.meta.env.PUBLIC_CONTACT_EMAIL ? `mailto:${import.meta.env.PUBLIC_CONTACT_EMAIL}` : '#',
     label: 'Email',
   },
 ]
