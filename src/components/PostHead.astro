@@ -11,50 +11,200 @@ const { post } = Astro.props
 
 const title = post.data.title || SITE.title
 const description = post.data.description || SITE.description
-const image = new URL('/static/1200x630.png', Astro.site)
 const author =
   post.data.authors && post.data.authors.length > 0
-    ? post.data.authors.join(', ')
+    ? post.data.authors[0]
     : SITE.author
+
+const authors = post.data.authors || [SITE.author]
+
+const image = new URL('/static/1200x630.png', Astro.site)
+
+const postImage = post?.data?.image?.src
+  ? post.data.image.src
+  : null
+
+const postDate = post.data.date ? new Date(post.data.date).toISOString() : new Date().toISOString()
+
+const postImageForSEO = postImage
+  ? `${SITE.href}${postImage}`
+  : image.href
+
+// For subposts: noindex to avoid duplicate content
+const isSubpostPost = isSubpost(post.id)
+
+const allTags = post.data.tags || []
+
+// Keywords array
+const keywordArray = [
+  ...allTags,
+  'programming',
+  'technology',
+  'software engineering',
+  'documentation',
+  'tutorial',
+  'ibe ibrahim',
+  'bumentation'
+]
 ---
 
-<title>{`${title} | ${SITE.title}`}</title>
 <meta name="title" content={`${title} | ${SITE.title}`} />
 <meta name="description" content={description} />
-<link rel="canonical" href={SITE.href} />
 
-{isSubpost(post.id) && <meta name="robots" content="noindex" />}
+<!-- Canonical URL: point to main post URL, not subpost -->
+<link rel="canonical" href={isSubpostPost ? `${SITE.href}/blog/${post.id}` : Astro.url.href} />
 
+<!-- Robots: noindex for subposts to avoid duplicate content -->
+{isSubpostPost && <meta name="robots" content="noindex, follow" />}
+{!isSubpostPost && <meta name="robots" content="index, follow" />}
+
+<!-- Google/Bing bots -->
+<meta name="googlebot" content="index, follow" />
+<meta name="bingbot" content="index, follow" />
+
+<!-- Referrer policy -->
+<meta name="referrer" content="origin-when-cross-origin" />
+<!-- Open Graph (Article Type) -->
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta
-  property="og:image"
-  content={post?.data?.image?.src
-    ? `${SITE.href}${post.data.image.src}`
-    : image}
-/>
+<meta property="og:image" content={postImageForSEO} />
 <meta property="og:image:alt" content={title} />
-<meta property="og:type" content="website" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:type" content="article" />
 <meta property="og:locale" content={SITE.locale} />
 <meta property="og:site_name" content={SITE.title} />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:author" content={author} />
 
+<!-- Article-specific tags -->
+<meta property="article:published_time" content={postDate} />
+<meta property="article:modified_time" content={postDate} />
+{authors.map(a => <meta property="article:author" content={a} />)}
+<meta property="article:section" content="Technology" />
+{allTags.map(tag => <meta property="article:tag" content={tag} />)}
+
+<!-- Twitter Card (Large Image) -->
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta
-  property="twitter:image"
-  content={post?.data?.image?.src
-    ? `${SITE.href}${post.data.image.src}`
-    : image}
-/>
+<meta name="twitter:image" content={postImageForSEO} />
 <meta name="twitter:image:alt" content={title} />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:creator" content={author} />
+<meta name="twitter:creator" content="@bokumentation" />
+<meta name="twitter:site" content="@bokumentation" />
+<meta name="twitter:domain" content="bokumentation.vercel.app" />
 
-{
-  post?.data.tags &&
-    post.data.tags.map((tag: string) => {
-      return <meta property="article:tag" content={tag} />
-    })
-}
+<!-- Additional SEO Meta Tags -->
+<meta name="author" content={author} />
+<meta name="keywords" content={keywordArray.join(', ')} />
+<meta name="language" content="en" />
+<meta name="revisit-after" content="7 days" />
+<meta name="rating" content="general" />
+<meta name="audience" content="developers, programmers, tech enthusiasts" />
+
+<!-- JSON-LD Structured Data: BlogPosting -->
+<script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "${Astro.url.href}"
+  },
+  "headline": "${title}",
+  "description": "${description}",
+  "image": {
+    "@type": "ImageObject",
+    "url": "${postImageForSEO}"
+  },
+  "datePublished": "${postDate}",
+  "dateModified": "${postDate}",
+  "author": {
+    "@type": "Person",
+    "name": "${author}",
+    "url": "${SITE.href}#author"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "${SITE.href}#organization",
+    "name": "${SITE.title}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "${SITE.href}/static/logo.png",
+      "width": 600,
+      "height": 60
+    }
+  },
+  "keywords": "${keywordArray.join(', ')}",
+  "articleSection": "Technology",
+  "inLanguage": "${SITE.locale}"
+}`} />
+
+<!-- JSON-LD Structured Data: Organization -->
+<script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "${SITE.href}#organization",
+  "name": "${SITE.title}",
+  "url": "${SITE.href}",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "${SITE.href}/static/logo.png",
+    "width": 600,
+    "height": 60
+  },
+  "sameAs": [
+    "https://github.com/bumentation",
+    "https://youtube.com/@bumentation",
+    "https://instagram.com/bumentation"
+  ]
+}`} />
+
+<!-- JSON-LD Structured Data: WebSite (SearchAction) -->
+<script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "${SITE.href}#website",
+  "url": "${SITE.href}",
+  "name": "${SITE.title}",
+  "description": "${description}",
+  "publisher": {
+    "@id": "${SITE.href}#organization"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "${SITE.href}?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}`} />
+
+<!-- JSON-LD Structured Data: BreadcrumbList -->
+<script type="application/ld+json" set:html={`{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "${SITE.href}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "${SITE.href}/blog"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "${title}"
+    }
+  ]
+}`} />
+
+<!-- Performance: Preconnect to external domains -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+
+<!-- Performance: DNS prefetch -->
+<link rel="dns-prefetch" href="//www.google-analytics.com" />

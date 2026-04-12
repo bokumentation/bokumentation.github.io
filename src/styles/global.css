@@ -41,18 +41,18 @@
 
 @font-face {
   font-family: 'Geist';
-  src: url('/src/assets/fonts/GeistVF.woff2') format('woff2-variations');
+  src: url('../assets/fonts/GeistVF.woff2') format('woff2-variations');
   font-weight: 100 900;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
   font-family: 'Geist Mono';
-  src: url('/src/assets/fonts/GeistMonoVF.woff2') format('woff2-variations');
+  src: url('../assets/fonts/GeistMonoVF.woff2') format('woff2-variations');
   font-weight: 100 900;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 :root {
