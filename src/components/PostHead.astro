@@ -103,7 +103,7 @@ const keywordArray = [
 <meta name="audience" content="developers, programmers, tech enthusiasts" />
 
 <!-- JSON-LD Structured Data: BlogPosting -->
-<script type="application/ld+json" set:html={`{
+<script is:inline type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "mainEntityOfPage": {
@@ -140,7 +140,7 @@ const keywordArray = [
 }`} />
 
 <!-- JSON-LD Structured Data: Organization -->
-<script type="application/ld+json" set:html={`{
+<script is:inline type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": "${SITE.href}#organization",
@@ -155,12 +155,12 @@ const keywordArray = [
   "sameAs": [
     "https://github.com/bumentation",
     "https://youtube.com/@bumentation",
-    "https://instagram.com/bumentation"
+    "https://instagram.com/bokumentation"
   ]
 }`} />
 
 <!-- JSON-LD Structured Data: WebSite (SearchAction) -->
-<script type="application/ld+json" set:html={`{
+<script is:inline type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": "${SITE.href}#website",
@@ -178,7 +178,7 @@ const keywordArray = [
 }`} />
 
 <!-- JSON-LD Structured Data: BreadcrumbList -->
-<script type="application/ld+json" set:html={`{
+<script is:inline type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [

@@ -86,7 +86,7 @@ const allKeywords = [...keywords, 'programming', 'technology', 'ibe ibrahim'].jo
 <meta name="audience" content="developers, programmers, tech enthusiasts" />
 
 <!-- JSON-LD Structured Data -->
-<script type="application/ld+json" set:html={`{
+<script is:inline type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -118,14 +118,14 @@ const allKeywords = [...keywords, 'programming', 'technology', 'ibe ibrahim'].jo
       "sameAs": [
         "https://github.com/bumentation",
         "https://youtube.com/@bumentation",
-        "https://instagram.com/bumentation"
+        "https://instagram.com/bokumentation"
       ]
     }
   ]
 }`}/>
 
 {type === 'article' && (
-  <script type="application/ld+json" set:html={`{
+  <script is:inline type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "mainEntityOfPage": {
@@ -165,7 +165,7 @@ const allKeywords = [...keywords, 'programming', 'technology', 'ibe ibrahim'].jo
 }`}/>
 )}
 
-<script type="application/ld+json" set:html={`{
+<script is:inline type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [

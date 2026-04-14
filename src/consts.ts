@@ -5,7 +5,7 @@ export const SITE: Site = {
   title: 'Bokumentation',
   description:
     'This are my boku blog',
-  href: 'https://bokumentation.vercel.app',
+  href: import.meta.env.PUBLIC_WEBSITE_URL,
   author: 'Ibe Ibrahim',
   locale: 'en-US',
   featuredPostCount: 6,
@@ -33,15 +33,15 @@ export const NAV_LINKS: SocialLink[] = [
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
-    href: 'https://youtube.com/@bokumentation',
+    href: import.meta.env.PUBLIC_YOUTUBE_URL,
     label: 'Youtube',
   },
   {
-    href: 'https://github.com/bokumentation',
+    href: import.meta.env.PUBLIC_GITHUB_URL,
     label: 'GitHub',
   },
   {
-    href: 'https://instagram.com/bokumentation',
+    href: import.meta.env.PUBLIC_INSTAGRAM_URL,
     label: 'Instagram',
   },
   {

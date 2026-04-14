@@ -6,13 +6,13 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "npm run search:index && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "prettier": "prettier --write **/*.{ts,tsx,css,astro} --ignore-path .gitignore",
     "postinstall": "patch-package",
     "search:index": "node scripts/generate-search-index.js",
-    "build:with-search": "npm run search:index && npm run build"
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
@@ -48,6 +48,7 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
     "prettier": "^3.8.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-astro-organize-imports": "^0.4.12",

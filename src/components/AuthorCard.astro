@@ -23,11 +23,11 @@ const socialLinks: SocialLink[] = [
   import.meta.env.PUBLIC_CONTACT_EMAIL && { href: `mailto:${import.meta.env.PUBLIC_CONTACT_EMAIL}`, label: 'Email' },
 
   author.data.instagram && {
-    href: `${author.data.instagram}`,
+    href: author.data.instagram,
     label: 'Instagram',
   },
   author.data.youtube && {
-    href: `${author.data.youtube}`,
+    href: author.data.youtube,
     label: 'Youtube',
   },
 ].filter(Boolean) as SocialLink[]

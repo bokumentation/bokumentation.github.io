@@ -77,7 +77,7 @@ Visit-time: 0600-2200
 
 export const GET: APIRoute = ({ site }) => {
   const sitemapURL = new URL('sitemap-index.xml', site)
-  const siteURL = site || new URL('https://bokumentation.vercel.app')
+  const siteURL = site || new URL('https://bokumentation.site')
   return new Response(getRobotsTxt(sitemapURL, siteURL), {
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
