@@ -9,6 +9,8 @@ interface Props {
 
 const { post } = Astro.props
 
+const siteHref = SITE.href || Astro.site
+
 const title = post.data.title || SITE.title
 const description = post.data.description || SITE.description
 const author =
@@ -27,7 +29,7 @@ const postImage = post?.data?.image?.src
 const postDate = post.data.date ? new Date(post.data.date).toISOString() : new Date().toISOString()
 
 const postImageForSEO = postImage
-  ? `${SITE.href}${postImage}`
+  ? `${siteHref}${postImage}`
   : image.href
 
 // For subposts: noindex to avoid duplicate content
@@ -52,7 +54,7 @@ const keywordArray = [
 <meta name="description" content={description} />
 
 <!-- Canonical URL: point to main post URL, not subpost -->
-<link rel="canonical" href={isSubpostPost ? `${SITE.href}/blog/${post.id}` : Astro.url.href} />
+<link rel="canonical" href={isSubpostPost ? `${siteHref}/blog/${post.id}` : Astro.url.href} />
 
 <!-- Robots: noindex for subposts to avoid duplicate content -->
 {isSubpostPost && <meta name="robots" content="noindex, follow" />}
@@ -121,15 +123,15 @@ const keywordArray = [
   "author": {
     "@type": "Person",
     "name": "${author}",
-    "url": "${SITE.href}#author"
+    "url": "${siteHref}#author"
   },
   "publisher": {
     "@type": "Organization",
-    "@id": "${SITE.href}#organization",
+    "@id": "${siteHref}#organization",
     "name": "${SITE.title}",
     "logo": {
       "@type": "ImageObject",
-      "url": "${SITE.href}/static/logo.png",
+      "url": "${siteHref}/static/logo.png",
       "width": 600,
       "height": 60
     }
@@ -143,12 +145,12 @@ const keywordArray = [
 <script is:inline type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "Organization",
-  "@id": "${SITE.href}#organization",
+  "@id": "${siteHref}#organization",
   "name": "${SITE.title}",
-  "url": "${SITE.href}",
+  "url": "${siteHref}",
   "logo": {
     "@type": "ImageObject",
-    "url": "${SITE.href}/static/logo.png",
+    "url": "${siteHref}/static/logo.png",
     "width": 600,
     "height": 60
   },
@@ -163,16 +165,16 @@ const keywordArray = [
 <script is:inline type="application/ld+json" set:html={`{
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": "${SITE.href}#website",
-  "url": "${SITE.href}",
+  "@id": "${siteHref}#website",
+  "url": "${siteHref}",
   "name": "${SITE.title}",
   "description": "${description}",
   "publisher": {
-    "@id": "${SITE.href}#organization"
+    "@id": "${siteHref}#organization"
   },
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "${SITE.href}?q={search_term_string}",
+    "target": "${siteHref}?q={search_term_string}",
     "query-input": "required name=search_term_string"
   }
 }`} />
@@ -186,13 +188,13 @@ const keywordArray = [
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "${SITE.href}"
+      "item": "${siteHref}"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Blog",
-      "item": "${SITE.href}/blog"
+      "item": "${siteHref}/blog"
     },
     {
       "@type": "ListItem",
