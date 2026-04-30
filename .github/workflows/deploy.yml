@@ -20,16 +20,17 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+      - name: Create .env file for Astro build
+        run: |
+          echo "PUBLIC_WEBSITE_URL=${{ vars.PUBLIC_WEBSITE_URL }}" > .env
+          echo "PUBLIC_CONTACT_EMAIL=${{ vars.PUBLIC_CONTACT_EMAIL }}" >> .env
+          echo "PUBLIC_YOUTUBE_URL=${{ vars.PUBLIC_YOUTUBE_URL }}" >> .env
+          echo "PUBLIC_GITHUB_URL=${{ vars.PUBLIC_GITHUB_URL }}" >> .env
+          echo "PUBLIC_INSTAGRAM_URL=${{ vars.PUBLIC_INSTAGRAM_URL }}" >> .env
+          echo "PUBLIC_LINKEDIN_URL=${{ vars.PUBLIC_LINKEDIN_URL }}" >> .env
+          echo "PUBLIC_TWITTER_URL=${{ vars.PUBLIC_TWITTER_URL }}" >> .env
       - name: Install, build, and upload your site
         uses: withastro/action@v3
-        env:
-          PUBLIC_WEBSITE_URL: ${{ vars.PUBLIC_WEBSITE_URL }}
-          PUBLIC_CONTACT_EMAIL: ${{ vars.PUBLIC_CONTACT_EMAIL }}
-          PUBLIC_YOUTUBE_URL: ${{ vars.PUBLIC_YOUTUBE_URL }}
-          PUBLIC_GITHUB_URL: ${{ vars.PUBLIC_GITHUB_URL }}
-          PUBLIC_INSTAGRAM_URL: ${{ vars.PUBLIC_INSTAGRAM_URL }}
-          PUBLIC_LINKEDIN_URL: ${{ vars.PUBLIC_LINKEDIN_URL }}
-          PUBLIC_TWITTER_URL: ${{ vars.PUBLIC_TWITTER_URL }}
 
   deploy:
     needs: build
