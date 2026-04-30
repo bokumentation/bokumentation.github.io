@@ -1,62 +1,76 @@
 ---
 import BlogCard from '@/components/BlogCard.astro'
-import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
-import SocialIcons from '@/components/SocialIcons.astro'
 import { buttonVariants } from '@/components/ui/button'
 import { SITE, SOCIAL_LINKS } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import { getRecentPosts } from '@/lib/data-utils'
+import SocialIcons from '@/components/SocialIcons.astro'
 
 const blog = await getRecentPosts(SITE.featuredPostCount)
 ---
 
-<Layout class="page-container max-w-3xl">
+<Layout class="">
   <PageHead slot="head" title="Home" />
-  <section class="mt-6 flex flex-col space-y-1 text-left fade-in">
-    <h2 class="text-4xl leading-none font-semibold">Hai there<span class="emoji">👋</span></h2>
-    <h3 class="text-foreground text-xl">Welcome to the Bokumentation!</h3>
-    <p class="text-foreground mt-4 text-sm">
-      From documentation become bokumentation because of ibe. I love doing
-      system low level programming and cinematography. What if i combined both?
-      And yes i'am still a "Diploma 3 of Computer Engineering" indonesia college
-      student. Looking for international internship.
-    </p>
-  </section>
 
-  <div class="mt-4 mb-4 flex-col sm:flex-row sm:justify-between">
-    <SocialIcons links={SOCIAL_LINKS} />
-  </div>
+  <div class="flex flex-col gap-24 py-12">
+    <!-- Hero Section -->
+    <section class="flex flex-col items-center text-center max-w-3xl mx-auto">
+      <div class="mb-6 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium bg-secondary text-secondary-foreground shadow-border">
+        Academic Blog
+      </div>
 
-  <section class="flex flex-col gap-y-4">
-    <div
-      class="text-foreground flex items-center justify-between text-sm"
-    >
-      <h2>Latest posts</h2>
-      <a href="/blog">
-        See all blogs <span class="group-hover:translate-x-1">&rarr;</span></a
-      >
-    </div>
+      <h1 class="text-4xl sm:text-5xl font-semibold tracking-display mb-6 leading-[1.1]">
+        Documentation, refined through research and practice
+      </h1>
 
-    <ul class="flex flex-col gap-y-4">
-      {
-        blog.map((post) => (
+      <p class="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+        Low-level system programming, embedded development, and cinematography. 
+        Exploring the intersection of hardware and software through technical documentation.
+      </p>
+
+      <div class="flex items-center gap-4">
+        <a
+          href="/blog"
+          class="inline-flex items-center justify-center rounded-md bg-foreground text-background px-5 py-2.5 text-sm font-medium hover:bg-foreground/90 transition-colors shadow-border"
+        >
+          Read the blog
+        </a>
+        <a
+          href="/about"
+          class="inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium hover:bg-secondary transition-colors shadow-border"
+        >
+          About me
+        </a>
+      </div>
+
+      <div class="mt-8 flex items-center gap-4">
+        <SocialIcons links={SOCIAL_LINKS} />
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="flex flex-col gap-8 max-w-3xl mx-auto w-full">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-semibold tracking-heading">Latest posts</h2>
+          <p class="text-muted-foreground text-sm mt-1">Recent articles and tutorials</p>
+        </div>
+        <a
+          href="/blog"
+          class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          View all &rarr;
+        </a>
+      </div>
+
+      <ul class="flex flex-col gap-4">
+        {blog.map((post) => (
           <li>
             <BlogCard entry={post} />
           </li>
-        ))
-      }
-    </ul>
-
-    <div class="flex justify-center">
-      <Link
-        href="/blog"
-        class={`${buttonVariants({ variant: 'ghost' })} group`}
-      >
-        See all posts <span class="ml-1.5 group-hover:translate-x-1"
-          >&rarr;</span
-        >
-      </Link>
-    </div>
-  </section>
+        ))}
+      </ul>
+    </section>
+  </div>
 </Layout>

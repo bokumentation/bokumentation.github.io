@@ -8,8 +8,7 @@
     Geist, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-mono:
-    Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
+    Geist Mono, ui-monospace, SFMono-Regular, Roboto Mono, Menlo, Monaco, Liberation Mono, DejaVu Sans Mono, Courier New;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -44,7 +43,8 @@
   src: url('../assets/fonts/GeistVF.woff2') format('woff2-variations');
   font-weight: 100 900;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
+  font-feature-settings: 'liga' 1;
 }
 
 @font-face {
@@ -52,71 +52,107 @@
   src: url('../assets/fonts/GeistMonoVF.woff2') format('woff2-variations');
   font-weight: 100 900;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
+  font-feature-settings: 'liga' 1;
 }
 
 :root {
-  --background: #FFFFFF;
   --background: oklch(1 0 0);
-  --foreground: #000000;
-  --foreground: oklch(0% 0 0);
-  --primary: #333333;
+  --foreground: oklch(0.08 0 0);
   --primary: oklch(0.205 0 0);
-  --primary-foreground: #FAFAFA;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: #E5E5E5;
-  --secondary-foreground: #333333;
+  --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: #F7F7F7;
   --muted: oklch(0.97 0 0);
-  --muted-foreground: #0A0A0A;
-  --accent: #E5E5E5;
-  --accent-foreground: #333333;
+  --muted-foreground: oklch(0.45 0 0);
+  --accent: oklch(0.93 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --card: #FFFFFF;
   --card: oklch(1 0 0);
-  --card-foreground: #000000;
-  --card-foreground: oklch(0% 0 0);
-  --destructive: #DC2626;
+  --card-foreground: oklch(0.08 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #E8E8E8;
   --border: oklch(0.922 0 0);
-  --ring: #B3B3B3;
   --ring: oklch(0.708 0 0);
 }
 
 [data-theme='dark'] {
-  --background: #0f0f0f;
-  --foreground: #ffffff;
-  --primary: #E8E8E8;
+  --background: oklch(0.06 0 0);
+  --foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
-  --primary-foreground: #333333;
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: #262626;
-  --secondary-foreground: #FAFAFA;
+  --secondary: oklch(0.15 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: #262626;
-  --muted-foreground: #c0c0c0;
-  --accent: #262626;
-  --accent-foreground: #FAFAFA;
+  --muted: oklch(0.15 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: oklch(0.15 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --card: #1a1a1a;
-  --card-foreground: #ffffff;
-  --destructive: #DC2626;
+  --card: oklch(0.1 0 0);
+  --card-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: rgba(255, 255, 255, 0.1);
   --border: oklch(1 0 0 / 10%);
-  --ring: #8C8C8C;
   --ring: oklch(0.556 0 0);
 }
 
 @layer base {
+  * {
+    font-feature-settings: 'liga' 1;
+  }
 
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    @apply border-border outline-ring/50 tracking-tight;
+    @apply border-border outline-ring/50;
   }
+}
+
+@layer utilities {
+  .shadow-border {
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.08);
+  }
+
+  .shadow-border-light {
+    box-shadow: rgb(235, 235, 235) 0px 0px 0px 1px;
+  }
+
+  .shadow-card {
+    box-shadow:
+      rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.04) 0px 2px 2px,
+      rgba(0, 0, 0, 0.04) 0px 8px 8px -8px,
+      #fafafa 0px 0px 0px 1px;
+  }
+
+  .shadow-card-hover {
+    box-shadow:
+      rgba(0, 0, 0, 0.12) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.06) 0px 4px 4px,
+      rgba(0, 0, 0, 0.06) 0px 12px 12px -6px,
+      #fafafa 0px 0px 0px 1px;
+  }
+
+  [data-theme='dark'] .shadow-border {
+    box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.1);
+  }
+
+  [data-theme='dark'] .shadow-border-light {
+    box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.15);
+  }
+
+  [data-theme='dark'] .shadow-card {
+    box-shadow:
+      rgba(255, 255, 255, 0.1) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.2) 0px 2px 2px;
+  }
+
+  [data-theme='dark'] .shadow-card-hover {
+    box-shadow:
+      rgba(255, 255, 255, 0.15) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.3) 0px 4px 4px;
+  }
+
+  .tracking-display { letter-spacing: -2.4px; }
+  .tracking-heading { letter-spacing: -1.28px; }
+  .tracking-title { letter-spacing: -0.96px; }
+  .tracking-label { letter-spacing: -0.32px; }
 }

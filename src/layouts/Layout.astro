@@ -22,31 +22,13 @@ const { class: className } = Astro.props
   </Head>
 
   <body>
-    <div class="flex h-fit min-h-screen flex-col gap-y-0 font-sans">
-      <!-- Top Bar Header -->
-      <div>
-        <Header />
-      </div>
-      
-      <div
-      class="bg-background/50 top-0 z-50 divide-y backdrop-blur-sm xl:divide-none"
-      >
-        <!-- SUBPOST NAVIGATION -->
-        <slot name="subposts-navigation" />
-        <!-- TOC FOR MOBILE NOW ARE STICKY -->
-        <slot name="table-of-contents" />
-      </div>
+    <div class="flex min-h-screen flex-col">
+      <Header />
 
-      <!-- Main Content -->
-      <main class="grow">
-        <div
-          class={cn('mt-4 mx-auto flex grow flex-col gap-y-2 px-4', className)}
-        >
-          <slot />
-        </div>
+      <main class={cn('mx-auto w-full max-w-6xl px-6 py-6 md:py-8', className)}>
+        <slot />
       </main>
 
-      <!-- Call Footer -->
       <Footer />
     </div>
   </body>

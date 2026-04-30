@@ -3,33 +3,28 @@ import Link from '@/components/Link.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
 import MobileMenu from '@/components/ui/mobile-menu'
 import { NAV_LINKS, SITE } from '@/consts'
-
-
 ---
 
-<header>
-  <div
-    class="border-b border-accent mx-auto flex max-w-full items-center justify-between gap-4 px-4 py-3"
-  >
-    <Link href="/" class="">
-      <span class="text-l h-full">{SITE.title}.</span>
+<header class="z-50 bg-background shadow-border">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
+    <Link href="/" class="text-xl font-semibold tracking-tight">
+      {SITE.title}
     </Link>
 
-    <div class="flex items-center sm:gap-4">
-      <nav class="hidden items-center gap-4 text-sm sm:flex sm:gap-6">
-        {
-          NAV_LINKS.map((item) => (
-            <Link
-              href={item.href}
-              class="text-foreground/60 hover:text-foreground/80 capitalize transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))
-        }
-      </nav>
-      <MobileMenu client:load />
+    <nav class="hidden items-center gap-8 text-sm sm:flex">
+      {NAV_LINKS.map((item) => (
+        <Link
+          href={item.href}
+          class="text-foreground/70 hover:text-foreground font-medium transition-colors"
+        >
+          {item.label}
+        </Link>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-3">
       <ThemeToggle />
+      <MobileMenu client:visible />
     </div>
   </div>
 </header>

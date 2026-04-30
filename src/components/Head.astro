@@ -1,16 +1,11 @@
 ---
 import { SITE } from '@/consts'
-import { ClientRouter } from 'astro:transitions'
 import Favicons from './Favicons.astro'
 ---
 
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, user-scalable=yes"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="generator" content={Astro.generator} />
 
   <meta name="HandheldFriendly" content="True" />
@@ -43,11 +38,6 @@ import Favicons from './Favicons.astro'
   />
 
   <Favicons />
-  <ClientRouter />
-
-  <!-- Font preloading for better performance -->
-  <!-- Note: Fonts are preloaded via Astro's asset pipeline -->
-  <!-- The actual font URLs will be injected during build -->
 
   <slot />
 </head>
