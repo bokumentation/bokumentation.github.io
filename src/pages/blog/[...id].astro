@@ -67,150 +67,176 @@ const tocSections = await getTOCSections(currentPostId)
       />
     )
   }
-<!-- MAIN DIV -->
-<div class="w-full lg:flex justify-center items-center"> 
-<div class="lg:justify-between lg:flex">
-  <!-- START MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
-  <section class="grow flex flex-col gap-y-6 sm:max-w-4xl lg:border-accent lg:border lg:rounded-xl xl:w-4xl lg:w-4xl lg:p-4">
-    <!-- START BREADCRUMBS NAVIGATION -->
-    <section id="breadcrumbs" class="w-full hidden sm:block">
-      <div class="">
-        <Breadcrumbs
-        items={[
-          { href: '/blog', label: 'Blog', icon: 'lucide:library-big' },
-          ...(isCurrentSubpost && parentPost
-            ? [
-                {
-                  href: `/blog/${parentPost.id}`,
-                  label: parentPost.data.title,
-                  icon: 'lucide:book-open',
-                },
-                {
-                  href: `/blog/${currentPostId}`,
-                  label: post.data.title,
-                  icon: 'lucide:file-text',
-                },
-              ]
-            : [
-                {
-                  href: `/blog/${currentPostId}`,
-                  label: post.data.title,
-                  icon: 'lucide:book-open-text',
-                },
-              ]),
-            ]}
-        />
-      </div>
-    </section>
-    <!-- END BREADCRUMBS NAVIGATION -->
-
-    <!-- START BLOG POST IMAGE -->
-    {
-      post.data.image && (
-        <Image
-          src={post.data.image}
-          alt={post.data.title}
-          width={1200}
-          height={630}
-          class="mx-auto block rounded-md object-cover"
-        />
-      )
-    }
-    <!-- END BLOG POST IMAGE -->
-
-    <!-- START BLOG POST TITLE AND INFORMATION -->
-    <section class=" flex flex-col text-center">
-      <div class="flex flex-col">
-        <!-- BLOG POST TITLE -->
-        <h1 class="mb-2 scroll-mt-31 text-xl leading-tight font-bold sm:text-2xl font-[family-name:var(--font-heading)] tracking-title" id="post-title" > {post.data.title} </h1>
-        <!-- START BLOG POST INFORMATION -->
-        <div class="text-muted-foreground divide-border mb-4 flex flex-row flex-wrap items-center justify-center divide-x text-xs sm:text-sm" >
-          <!-- DATE -->
-          <div class="flex items-center justify-center gap-2 px-2 py-0" > <span>{formatDate(post.data.date)}</span> </div>
-          <!-- READING TIME -->
-          <div class="flex items-center justify-center gap-2 px-2 py-0" > <span>{postReadingTime}
-              {
-                combinedReadingTime &&
-                  combinedReadingTime !== postReadingTime && (
-                    <span class="text-muted-foreground">
-                      {' '}
-                      ({combinedReadingTime} total)
-                    </span>
-                  )
-              }
-            </span>
+  <!-- MAIN DIV -->
+  <div class="w-full items-center justify-center lg:flex">
+    <div class="lg:flex lg:justify-between">
+      <!-- START MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
+      <section
+        class="lg:border-accent flex grow flex-col gap-y-6 sm:max-w-4xl lg:w-4xl lg:rounded-xl lg:border lg:p-4 xl:w-4xl"
+      >
+        <!-- START BREADCRUMBS NAVIGATION -->
+        <section id="breadcrumbs" class="hidden w-full sm:block">
+          <div class="">
+            <Breadcrumbs
+              items={[
+                { href: '/blog', label: 'Blog', icon: 'lucide:library-big' },
+                ...(isCurrentSubpost && parentPost
+                  ? [
+                      {
+                        href: `/blog/${parentPost.id}`,
+                        label: parentPost.data.title,
+                        icon: 'lucide:book-open',
+                      },
+                      {
+                        href: `/blog/${currentPostId}`,
+                        label: post.data.title,
+                        icon: 'lucide:file-text',
+                      },
+                    ]
+                  : [
+                      {
+                        href: `/blog/${currentPostId}`,
+                        label: post.data.title,
+                        icon: 'lucide:book-open-text',
+                      },
+                    ]),
+              ]}
+            />
           </div>
+        </section>
+        <!-- END BREADCRUMBS NAVIGATION -->
 
-          <!-- SUBPOST COUNT -->
-          {
-            subpostCount > 0 && (
-              <div class="flex items-center justify-center gap-1 px-2 py-0">
-                <Icon name="lucide:file-text" class="size-3" />
-                {subpostCount} subpost{subpostCount === 1 ? '' : 's'}
+        <!-- START BLOG POST IMAGE -->
+        {
+          post.data.image && (
+            <Image
+              src={post.data.image}
+              alt={post.data.title}
+              width={1200}
+              height={630}
+              class="mx-auto block rounded-md object-cover"
+              fetchpriority="high"
+            />
+          )
+        }
+        <!-- END BLOG POST IMAGE -->
+
+        <!-- START BLOG POST TITLE AND INFORMATION -->
+        <section class="flex flex-col text-center">
+          <div class="flex flex-col">
+            <!-- BLOG POST TITLE -->
+            <h1
+              class="tracking-title mb-2 scroll-mt-31 font-[family-name:var(--font-heading)] text-xl leading-tight font-bold sm:text-2xl"
+              id="post-title"
+            >
+              {post.data.title}
+            </h1>
+            <!-- START BLOG POST INFORMATION -->
+            <div
+              class="text-muted-foreground divide-border mb-4 flex flex-row flex-wrap items-center justify-center divide-x text-xs sm:text-sm"
+            >
+              <!-- DATE -->
+              <div class="flex items-center justify-center gap-2 px-2 py-0">
+                <span>{formatDate(post.data.date)}</span>
               </div>
+              <!-- READING TIME -->
+              <div class="flex items-center justify-center gap-2 px-2 py-0">
+                <span
+                  >{postReadingTime}
+                  {
+                    combinedReadingTime &&
+                      combinedReadingTime !== postReadingTime && (
+                        <span class="text-muted-foreground">
+                          {' '}
+                          ({combinedReadingTime} total)
+                        </span>
+                      )
+                  }
+                </span>
+              </div>
+
+              <!-- SUBPOST COUNT -->
+              {
+                subpostCount > 0 && (
+                  <div class="flex items-center justify-center gap-1 px-2 py-0">
+                    <Icon name="lucide:file-text" class="size-3" />
+                    {subpostCount} subpost{subpostCount === 1 ? '' : 's'}
+                  </div>
+                )
+              }
+            </div>
+            <!-- END BLOG POST INFORMATION -->
+
+            <!-- BLOG POST TAG HASH -->
+            <div class="flex flex-wrap justify-center gap-2">
+              {
+                post.data.tags &&
+                  post.data.tags.length > 0 &&
+                  post.data.tags.map((tag) => (
+                    <a
+                      href={`/tags/${tag}`}
+                      class={badgeVariants({ variant: 'secondary' })}
+                    >
+                      <Icon name="lucide:hash" class="size-3" />
+                      {tag}
+                    </a>
+                  ))
+              }
+            </div>
+            <!-- END BLOG POST TAG HASH -->
+          </div>
+        </section>
+        <!-- END BLOG POST TITLE AND INFORMATION -->
+
+        <!-- BLOG POST MAIN CONTENT ARTICLE Original: prose col-start-2 -->
+        <section class="lg:p-4">
+          <article class="prose">
+            <Content />
+          </article>
+        </section>
+
+        <!-- BLOG POST NAVIGATION -->
+        <div class="">
+          <PostNavigation
+            newerPost={navigation.newer}
+            olderPost={navigation.older}
+            parentPost={isCurrentSubpost ? navigation.parent : undefined}
+          />
+        </div>
+      </section>
+      <!-- END MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
+
+      <!-- START OF SIDE BAR -->
+      <div class="hidden w-[300px] lg:px-2 xl:block">
+        <!-- IF BLOG HAS SUBPOST, THIS IS SUB POST SIDE BAR -->
+        <div id="subpost-sidebar">
+          {
+            (hasChildPosts || isCurrentSubpost) && (
+              <SubpostsSidebar
+                parentId={
+                  isCurrentSubpost ? getParentId(currentPostId) : currentPostId
+                }
+                className="w-64"
+              />
             )
           }
         </div>
-        <!-- END BLOG POST INFORMATION -->
 
-        <!-- BLOG POST TAG HASH -->
-        <div class="flex flex-wrap justify-center gap-2">
+        <!-- START TABLE OF CONTENTS -->
+        <div class="sticky top-4 shrink-0">
           {
-            post.data.tags &&
-              post.data.tags.length > 0 &&
-              post.data.tags.map((tag) => (
-                <a
-                  href={`/tags/${tag}`}
-                  class={badgeVariants({ variant: 'secondary' })}
-                >
-                  <Icon name="lucide:hash" class="size-3" />
-                  {tag}
-                </a>
-              ))
+            tocSections.length > 0 && (
+              <TOCSidebar
+                sections={tocSections}
+                currentPostId={currentPostId}
+              />
+            )
           }
         </div>
-        <!-- END BLOG POST TAG HASH -->
       </div>
-    </section>
-    <!-- END BLOG POST TITLE AND INFORMATION -->
-
-    <!-- BLOG POST MAIN CONTENT ARTICLE Original: prose col-start-2 -->
-    <section class="lg:p-4">
-       <article class="prose">
-        <Content />
-        </article>
-    </section>
-
-    <!-- BLOG POST NAVIGATION -->
-     <div class="">
-       <PostNavigation newerPost={navigation.newer} olderPost={navigation.older} parentPost={isCurrentSubpost ? navigation.parent : undefined} />
-     </div>
-  </section>
-  <!-- END MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
-
-  <!-- START OF SIDE BAR -->
-  <div class="w-[300px] lg:px-2 hidden xl:block">
-    
-    <!-- IF BLOG HAS SUBPOST, THIS IS SUB POST SIDE BAR -->
-    <div id="subpost-sidebar">
-      { (hasChildPosts || isCurrentSubpost) && (
-          <SubpostsSidebar parentId={ isCurrentSubpost ? getParentId(currentPostId) : currentPostId } className="w-64"/>
-        )
-      } 
-    </div>
-
-    <!-- START TABLE OF CONTENTS -->
-    <div class="sticky top-4 shrink-0">
-      {
-        tocSections.length > 0 && (
-          <TOCSidebar sections={tocSections} currentPostId={currentPostId} />
-        )
-      } 
+      <!-- END OF SIDE BAR -->
     </div>
   </div>
-  <!-- END OF SIDE BAR -->
-</div>
-</div>
 
   <Button
     variant="outline"

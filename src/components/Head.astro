@@ -1,12 +1,6 @@
 ---
 import { SITE } from '@/consts'
 import Favicons from './Favicons.astro'
-import dmSansRegular from '@/assets/fonts/dm-sans-v17-latin-regular.woff2'
-import dmSansBold from '@/assets/fonts/dm-sans-v17-latin-700.woff2'
-import dmSansItalic from '@/assets/fonts/dm-sans-v17-latin-italic.woff2'
-import merriweatherRegular from '@/assets/fonts/merriweather-v33-latin-regular.woff2'
-import merriweatherBold from '@/assets/fonts/merriweather-v33-latin-700.woff2'
-import merriweatherItalic from '@/assets/fonts/merriweather-v33-latin-italic.woff2'
 ---
 
 <head>
@@ -44,52 +38,6 @@ import merriweatherItalic from '@/assets/fonts/merriweather-v33-latin-italic.wof
   />
 
   <Favicons />
-
-  <!-- Merriweather (body text) -->
-  <link
-    rel="preload"
-    href={merriweatherRegular}
-    as="font"
-    type="font/woff2"
-    crossorigin
-  />
-  <link
-    rel="preload"
-    href={merriweatherBold}
-    as="font"
-    type="font/woff2"
-    crossorigin
-  />
-  <link
-    rel="preload"
-    href={merriweatherItalic}
-    as="font"
-    type="font/woff2"
-    crossorigin
-  />
-
-  <!-- DM Sans (headings) -->
-  <link
-    rel="preload"
-    href={dmSansRegular}
-    as="font"
-    type="font/woff2"
-    crossorigin
-  />
-  <link
-    rel="preload"
-    href={dmSansBold}
-    as="font"
-    type="font/woff2"
-    crossorigin
-  />
-  <link
-    rel="preload"
-    href={dmSansItalic}
-    as="font"
-    type="font/woff2"
-    crossorigin
-  />
 
   <slot />
 </head>

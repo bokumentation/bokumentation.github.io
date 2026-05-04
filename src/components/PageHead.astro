@@ -40,9 +40,10 @@ const ogImage = image
   ? new URL(image, Astro.site).href
   : new URL('/static/1200x630.png', Astro.site).href
 
-const pathname = Astro.url.pathname.endsWith('/') && Astro.url.pathname.length > 1
-  ? Astro.url.pathname.slice(0, -1)
-  : Astro.url.pathname
+const pathname =
+  Astro.url.pathname.endsWith('/') && Astro.url.pathname.length > 1
+    ? Astro.url.pathname.slice(0, -1)
+    : Astro.url.pathname
 const canonicalUrl = new URL(pathname, siteHref).href
 
 // Combine with site keywords
@@ -215,6 +216,3 @@ const allKeywords = [
   ]
 }`}
 />
-
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-<link rel="dns-prefetch" href="//www.google-analytics.com" />

@@ -34,6 +34,13 @@
 - Add `CHANGELOG.md` to track project changes
 - Add GitHub Actions build badge to `README.md`
 
+### PageSpeed Optimizations
+
+- Add `fetchpriority="high"` to hero blog post image (LCP)
+- Remove 6 font preload `<link>` tags — redundant with `@font-face font-display: swap`
+- Remove Google Fonts preconnect — all fonts are self-hosted woff2
+- Defer pagination component JS: `client:load` → `client:idle`
+
 ### Lock Files
 
 - Add `pnpm-lock.yaml` to `.gitignore`
