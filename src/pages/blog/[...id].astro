@@ -73,7 +73,7 @@ const tocSections = await getTOCSections(currentPostId)
   <!-- START MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
   <section class="grow flex flex-col gap-y-6 sm:max-w-4xl lg:border-accent lg:border lg:rounded-xl xl:w-4xl lg:w-4xl lg:p-4">
     <!-- START BREADCRUMBS NAVIGATION -->
-    <section id="breadcrumbs" class="w-full">
+    <section id="breadcrumbs" class="w-full hidden sm:block">
       <div class="">
         <Breadcrumbs
         items={[
@@ -112,7 +112,7 @@ const tocSections = await getTOCSections(currentPostId)
           alt={post.data.title}
           width={1200}
           height={630}
-          class="rounded-2xl object-cover"
+          class="mx-auto block rounded-md object-cover"
         />
       )
     }
@@ -122,13 +122,13 @@ const tocSections = await getTOCSections(currentPostId)
     <section class=" flex flex-col text-center">
       <div class="flex flex-col">
         <!-- BLOG POST TITLE -->
-        <h1 class="mb-2 scroll-mt-31 text-3xl leading-tight font-medium sm:text-4xl" id="post-title" > {post.data.title} </h1>
+        <h1 class="mb-2 scroll-mt-31 text-xl leading-tight font-bold sm:text-2xl font-[family-name:var(--font-heading)] tracking-title" id="post-title" > {post.data.title} </h1>
         <!-- START BLOG POST INFORMATION -->
-        <div class="text-muted-foreground divide-border mb-4 flex flex-col items-center justify-center divide-y text-xs sm:flex-row sm:flex-wrap sm:divide-x sm:divide-y-0 sm:text-sm" >
+        <div class="text-muted-foreground divide-border mb-4 flex flex-row flex-wrap items-center justify-center divide-x text-xs sm:text-sm" >
           <!-- DATE -->
-          <div class="flex w-full items-center justify-center gap-2 py-2 sm:w-fit sm:px-2 sm:py-0 first:sm:pl-0 last:sm:pr-0" > <span>{formatDate(post.data.date)}</span> </div>
+          <div class="flex items-center justify-center gap-2 px-2 py-0" > <span>{formatDate(post.data.date)}</span> </div>
           <!-- READING TIME -->
-          <div class="flex w-full items-center justify-center gap-2 py-2 sm:w-fit sm:px-2 sm:py-0 first:sm:pl-0 last:sm:pr-0" > <span>{postReadingTime}
+          <div class="flex items-center justify-center gap-2 px-2 py-0" > <span>{postReadingTime}
               {
                 combinedReadingTime &&
                   combinedReadingTime !== postReadingTime && (
@@ -144,7 +144,7 @@ const tocSections = await getTOCSections(currentPostId)
           <!-- SUBPOST COUNT -->
           {
             subpostCount > 0 && (
-              <div class="flex w-full items-center justify-center gap-1 py-2 sm:w-fit sm:px-2 sm:py-0 first:sm:pl-0 last:sm:pr-0">
+              <div class="flex items-center justify-center gap-1 px-2 py-0">
                 <Icon name="lucide:file-text" class="size-3" />
                 {subpostCount} subpost{subpostCount === 1 ? '' : 's'}
               </div>

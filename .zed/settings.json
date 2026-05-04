@@ -1,8 +1,0 @@
-{
-   "context_servers": {
-     "Astro docs": {
-       "enabled": true,
-       "url": "https://mcp.docs.astro.build/mcp"
-     }
-   }
-}

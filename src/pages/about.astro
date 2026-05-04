@@ -15,7 +15,7 @@ const education = await getAllEducation()
   <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
 
   <section class="mb-8">
-    <h1 class="mb-4 text-2xl font-medium">Meet the Author</h1>
+    <h1 class="mb-4 text-2xl font-bold font-[family-name:var(--font-heading)] tracking-title">Meet the Author</h1>
     <div class="mb-4">
       {
         authors.length > 0 ? (
@@ -37,7 +37,7 @@ const education = await getAllEducation()
   </section>
 
   <section class="mb-8">
-    <h2 class="mb-4 text-2xl font-medium">Behind the Scene</h2>
+    <h2 class="mb-4 text-2xl font-bold font-[family-name:var(--font-heading)] tracking-title">Behind the Scene</h2>
     <div class="prose prose-sm sm:prose-base mb-4">
       <p class="text-muted-foreground mt-0">
         This website is built with Astro, a modern static site generator that delivers fast, content-focused websites. 
@@ -50,7 +50,7 @@ const education = await getAllEducation()
       <p class="text-muted-foreground">
         Key technologies used in this project include:
       </p>
-      <ul class="text-muted-foreground">
+      <ul class="text-muted-foreground [&_strong]:text-inherit">
         <li><strong>Astro</strong> - Static site generation and component framework</li>
         <li><strong>Tailwind CSS v4</strong> - Utility-first CSS framework</li>
         <li><strong>TypeScript</strong> - Type-safe JavaScript development</li>
@@ -67,7 +67,7 @@ const education = await getAllEducation()
 
   <section class="mb-8">
     <div class="border border-accent p-4 sm:p-6 rounded-xl overflow-hidden">
-      <h2 class="mb-4 text-2xl font-medium">Education Background</h2>
+      <h2 class="mb-4 text-2xl font-bold font-[family-name:var(--font-heading)] tracking-title">Education Background</h2>
       {
         education.length > 0 ? (
           <div class="space-y-4">

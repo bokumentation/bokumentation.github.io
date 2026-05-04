@@ -1,7 +1,7 @@
 ---
 name: 'Ibe Ibrahim'
 pronouns: 'he'
-avatar: 'https://raw.githubusercontent.com/bokumentation/bokumentation.github.io/refs/heads/main/src/assets/img/avatarboku.jpg'
+avatar: '/about-boku-2.jpg'
 bio: 'A second job to support my addiction.'
 website: 'https://bokumentation.github.io'
 github: 'https://github.com/bokumentation'

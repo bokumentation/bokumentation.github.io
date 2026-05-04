@@ -1,4 +1,7 @@
 # Hai there 👋
+
+[![Deploy to GitHub Pages](https://github.com/bokumentation/bokumentation.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/bokumentation/bokumentation.github.io/actions/workflows/deploy.yml)
+
 Welcome to the Bokumentation!
 
 This is my personal website. Made with Astro with Erudite Theme with my custom touch.

@@ -69,7 +69,6 @@ export default defineConfig({
     icon(),
   ],
   vite: {
-    // @ts-expect-error - Vite version mismatch between Astro and @tailwindcss/vite
     plugins: [tailwindcss()],
   },
   server: {
@@ -79,6 +78,10 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  prefetch: {
+    defaultStrategy: 'hover',
+  },
+  compressHTML: true,
   markdown: {
     syntaxHighlight: false,
     rehypePlugins: [

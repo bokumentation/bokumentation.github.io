@@ -19,11 +19,11 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
         Academic Blog
       </div>
 
-      <h1 class="text-4xl sm:text-5xl font-semibold tracking-display mb-6 leading-[1.1]">
+      <h1 class="text-2xl sm:text-3xl font-semibold tracking-title mb-6 leading-[1.1]">
         Documentation, refined through research and practice
       </h1>
 
-      <p class="text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+      <p class="text-sm text-muted-foreground leading-relaxed mb-8 max-w-2xl">
         Low-level system programming, embedded development, and cinematography. 
         Exploring the intersection of hardware and software through technical documentation.
       </p>
@@ -63,7 +63,7 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
         </a>
       </div>
 
-      <ul class="flex flex-col gap-4">
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {blog.map((post) => (
           <li>
             <BlogCard entry={post} />

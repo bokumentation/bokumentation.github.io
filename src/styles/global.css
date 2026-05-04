@@ -5,10 +5,13 @@
 
 @theme inline {
   --font-sans:
-    Geist, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    Merriweather, Georgia, serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-heading:
+    'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   --font-mono:
-    Geist Mono, ui-monospace, SFMono-Regular, Roboto Mono, Menlo, Monaco, Liberation Mono, DejaVu Sans Mono, Courier New;
+    ui-monospace, SFMono-Regular, Roboto Mono, Menlo, Monaco, Liberation Mono, DejaVu Sans Mono, Courier New;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -39,21 +42,51 @@
 }
 
 @font-face {
-  font-family: 'Geist';
-  src: url('../assets/fonts/GeistVF.woff2') format('woff2-variations');
-  font-weight: 100 900;
+  font-family: 'Merriweather';
+  src: url('../assets/fonts/merriweather-v33-latin-regular.woff2') format('woff2');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
-  font-feature-settings: 'liga' 1;
 }
 
 @font-face {
-  font-family: 'Geist Mono';
-  src: url('../assets/fonts/GeistMonoVF.woff2') format('woff2-variations');
-  font-weight: 100 900;
+  font-family: 'Merriweather';
+  src: url('../assets/fonts/merriweather-v33-latin-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('../assets/fonts/merriweather-v33-latin-700.woff2') format('woff2');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
-  font-feature-settings: 'liga' 1;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/dm-sans-v17-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/dm-sans-v17-latin-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/dm-sans-v17-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {
@@ -153,6 +186,6 @@
 
   .tracking-display { letter-spacing: -2.4px; }
   .tracking-heading { letter-spacing: -1.28px; }
-  .tracking-title { letter-spacing: -0.96px; }
+  .tracking-title { letter-spacing: -1.28px; }
   .tracking-label { letter-spacing: -0.32px; }
 }

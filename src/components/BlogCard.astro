@@ -22,13 +22,13 @@ const readTime = await getCombinedReadingTime(entry.id)
 const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
 ---
 
-<article class="group shadow-card rounded-lg p-5 transition-all duration-200 hover:shadow-card-hover">
+<article class="group pb-6">
   <Link
     href={`/${entry.collection}/${entry.id}`}
     class="flex flex-col gap-4"
   >
-    {entry.data.image && (
-      <div class="overflow-hidden rounded-md">
+    <div class="overflow-hidden rounded-md">
+      {entry.data.image ? (
         <Image
           src={entry.data.image}
           alt={entry.data.title}
@@ -38,17 +38,15 @@ const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
           class="rounded-md object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           loading="lazy"
         />
-      </div>
-    )}
+      ) : (
+        <div class="aspect-[600/315] bg-muted rounded-md"></div>
+      )}
+    </div>
 
     <div>
-      <h3 class="text-lg font-semibold tracking-title mb-2 group-hover:text-foreground/80 transition-colors">
+      <h3 class="text-lg font-bold tracking-title mb-2 group-hover:text-foreground/80 transition-colors font-[family-name:var(--font-heading)] line-clamp-2">
         {entry.data.title}
       </h3>
-
-      <p class="text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-3">
-        {entry.data.description}
-      </p>
 
       <div class="text-muted-foreground flex flex-wrap items-center gap-x-2 text-xs">
         <span>{formattedDate}</span>

@@ -22,11 +22,11 @@ interface Props {
 const { items } = Astro.props
 ---
 
-<Breadcrumb>
+<Breadcrumb className="hidden sm:block">
   <BreadcrumbList>
     <BreadcrumbItem>
       <BreadcrumbLink href="/">
-        <Icon name="lucide:home" class="size-4 shrink-0" />
+        <Icon name="lucide:home" class="size-3 shrink-0" />
       </BreadcrumbLink>
     </BreadcrumbItem>
     {
@@ -38,7 +38,7 @@ const { items } = Astro.props
               <BreadcrumbPage>
                 <span class="flex items-center gap-x-2">
                   {item.icon && (
-                    <Icon name={item.icon} class="size-4 shrink-0" />
+                    <Icon name={item.icon} class="size-3 shrink-0" />
                   )}
                   <span>{item.label}</span>
                 </span>
@@ -47,7 +47,7 @@ const { items } = Astro.props
               <BreadcrumbLink href={item.href}>
                 <span class="flex items-center gap-x-2">
                   {item.icon && (
-                    <Icon name={item.icon} class="size-4 shrink-0" />
+                    <Icon name={item.icon} class="size-3 shrink-0" />
                   )}
                   <span>{item.label}</span>
                 </span>

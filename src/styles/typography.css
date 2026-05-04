@@ -27,46 +27,46 @@
 
 @layer components {
   .prose {
-    @apply text-foreground text-base leading-7;
+    @apply text-[#242424] dark:text-foreground text-sm leading-6;
     @apply [&>link[rel="stylesheet"]+*]:mt-0! [&>link[rel="stylesheet"]+*>*]:mt-0!;
 
     :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply text-foreground my-5;
+      @apply text-[#242424] dark:text-foreground my-3;
     }
 
     :where(h1, h2, h3, h4, h5, h6):not(
         :where([class~='not-prose'], [class~='not-prose'] *)
       ) {
-      @apply text-foreground/90 scroll-mt-32 font-medium xl:scroll-mt-20;
+      @apply text-[#242424] dark:text-foreground/90 scroll-mt-32 font-medium xl:scroll-mt-20;
     }
 
     /* Don't use an <h1> in your posts, one is already generated in blog/[...id].astro */
     :where(h1):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply mt-8 mb-6 text-4xl;
+      @apply mt-4 mb-2 text-xl;
     }
 
     :where(h2):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply mt-8 mb-4 text-2xl;
+      @apply mt-4 mb-2 text-lg;
     }
 
     :where(h3):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply mt-8 mb-4 text-xl;
+      @apply mt-3 mb-1 text-base;
     }
 
     :where(h4):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply mt-7 mb-3 text-lg;
+      @apply mt-3 mb-1 text-sm;
     }
 
     :where(h5, h6):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply mt-5 mb-3;
+      @apply mt-3 mb-1;
     }
 
     :where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply text-foreground decoration-muted-foreground hover:decoration-foreground font-medium break-words underline underline-offset-[3px] transition-colors;
+      @apply text-[#242424] dark:text-foreground decoration-muted-foreground hover:decoration-foreground font-medium break-words underline underline-offset-[3px] transition-colors;
     }
 
     :where(strong):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply text-foreground font-medium;
+      @apply text-[#242424] dark:text-foreground font-medium;
     }
 
     :where(ul):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
@@ -79,7 +79,7 @@
     }
 
     :where(li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply text-foreground pl-2 [&>p]:my-0;
+      @apply text-[#242424] dark:text-foreground pl-2 [&>p]:my-0;
     }
 
     :where(ul ul, ol ol, ul ol, ol ul):not(
@@ -96,17 +96,17 @@
     :where(blockquote):not(
         :where([class~='not-prose'], [class~='not-prose'] *)
       ) {
-      margin: 1.5rem 0;
-      padding-left: 1.5rem;
+      margin: 1rem 0;
+      padding-left: 1rem;
       border-left: 2px solid;
       border-color: #8b5cf6; /* Purple-500 fallback */
       border-color: oklch(0.623 0.214 305.5); /* Purple oklch */
       color: #6b7280; /* Gray-500 fallback */
       color: oklch(0.551 0.027 264.364); /* Muted foreground */
-      font-size: 0.875rem;
-      line-height: 1.5rem;
+      font-size: 0.8125rem;
+      line-height: 1.35rem;
     }
-    
+
     :where(blockquote *):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
       color: inherit;
     }
@@ -149,7 +149,7 @@
     }
 
     :where(pre):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply max-h-[min(68vh,1000px)]! overflow-y-auto [&::-webkit-scrollbar-corner]:hidden;
+      @apply max-h-[min(68vh,1000px)]! overflow-y-auto text-xs leading-tight [&::-webkit-scrollbar-corner]:hidden;
     }
 
     :where(summary):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
