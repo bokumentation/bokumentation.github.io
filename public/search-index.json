@@ -3,7 +3,7 @@
     {
       "id": "index",
       "title": "Hello World",
-      "description": "Hello World",
+      "description": "A test post demonstrating markdown features including code blocks with syntax highlighting, LaTeX math equations, and heading structures on this Astro-based blog.",
       "content": "Heading 1 Heading 2 Ini adalah paragraf Heading 3 Heading 4 Heading 5 Heading 6 --- Test Code Block Code Block cpp int main { fmt::println \"Hello World\\n\" ; } Inline Code Block Go to this path src/bin/gcc --- Test Latex $$ a = \\frac{b}{c} $$ Inline Latex $a=\\frac{b}{c}$",
       "url": "/blog/250810-hello-world",
       "date": "2025-08-10T00:00:00.000Z",
@@ -16,7 +16,7 @@
     {
       "id": "index",
       "title": "Simple Setup for Arduino-esp32 as ESP-IDF Components",
-      "description": "Simple Setup for Arduino-esp32 as ESP-IDF Components",
+      "description": "Step-by-step guide to integrate Arduino-esp32 as an ESP-IDF component. Covers setup, different ESP32 chips, VS Code IntelliSense, and choosing Arduino vs IDF programming style.",
       "content": "This is a straighforward setup for integrating Arduino-esp32 as an ESP-IDF components. For other ESP32 chip types, refer to the \"Setting Up for Different ESP32 Chips\" section below. Features: - Straightforward setup for ESP32 just clone then build and flash - Support VS Code IntelliSense or Clangd extension. You need: - Installed ESP-IDF on your computer - an internet connection --- Get Started Make sure you have to run ESP-IDF on your terminal. Then follow these steps. 1. Clone and navigate to the example folder. bash git clone https://github.com/bokumentation/ESP32-Arduino-as-Components-Starter.git bash cd ESP32-Arduino-as-Components-Starter/examples/esp32 arduino 2. Build, flash, then monitor. bash idf.py build bash idf.py -p flash monitor > > Replace with your ESP32's actual serial port e.g., COM3 on Windows or /dev/ttyUSB0 on Linux . We can find this in device manager. 3. Now your LED should blinking. --- Setting Up for Different ESP32 Chips If you are using a chip other than the ",
       "url": "/blog/250913-easy-idf-setup",
       "date": "2025-09-13T00:00:00.000Z",
@@ -29,7 +29,7 @@
     {
       "id": "index",
       "title": "ESP-IDF Get Started",
-      "description": "ESP-IDF Get Started",
+      "description": "A complete beginner tutorial for setting up ESP-IDF on Windows, installing drivers, creating your first blinking LED project, and configuring VS Code for ESP32 development.",
       "content": "import Callout from '@/components/Callout.astro' This is tutorial for first time using ESP-IDF. Requirements You need - An internet connection - ESP-IDF V5.5 Offline Installer download https://dl.espressif.com/dl/esp-idf/ - VS Code download https://code.visualstudio.com/download with - C/CXX Extensions by Microsoft download https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools or Clangd - CH340 Driver download https://www.wch-ic.com/downloads/ch341ser zip.html --- 1. Install ESP-IDF and CH340 Driver After you downloaded the installer. Just install it like other program. Just make sure the ESP-IDF installation path are on C:\\Espressif . You can check the folder in C: directories after you finished the installer. 2. First Blinking LED Project So this is your first blinking LED project. What you need: - An internet connection - An ESP32 Devkit Development Board just use from stas-rg lab - LED 3.3v - USB Data Cable make sure it is can transfer data - Breadboard The hardwar",
       "url": "/blog/250916-esp-idf-get-started",
       "date": "2025-09-16T00:00:00.000Z",
@@ -43,7 +43,7 @@
     {
       "id": "index",
       "title": "Image Test",
-      "description": "Image Test",
+      "description": "Testing various image formats and responsive image display in Astro blog posts, including layout options and styling for embedded media content.",
       "content": "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance. Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.",
       "url": "/blog/260505-image-hello",
       "date": "2026-05-05T00:00:00.000Z",
@@ -58,7 +58,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget dui vel enim viverra ultricies. Pellentesque mattis pharetra sollicitudin. Etiam faucibus, nibh et finibus malesuada, dui nisl mattis nibh, mattis dictum velit purus quis ipsum. Suspendisse leo dui, facilisis sit amet erat et, tincidunt imperdiet ligula. Nunc dictum mauris nulla, non fringilla erat mollis quis. Maecenas sit amet blandit nisi, eget blandit mauris. Nam non placerat risus, vel ultricies elit. Nullam viverra erat non ante venenatis posuere. Cras bibendum elementum sem, et accumsan nunc scelerisque a. Nullam non molestie dui. Pellentesque placerat dui nec justo placerat, bibendum interdum nisl aliquam. Nam laoreet magna velit, ac facilisis ipsum porttitor ac. Morbi nec eros sit amet sem efficitur tristique sit amet non tellus. Maecenas ac tellus gravida, accumsan odio semper, pretium orci. ",
       "content": "",
       "url": "/projects#project-a",
-      "date": "2026-05-04T22:16:57.160Z",
+      "date": "2026-05-14T15:26:33.363Z",
       "type": "project",
       "tags": [
         "Astro",
@@ -74,7 +74,7 @@
       "description": "Abstrak Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget dui vel enim viverra ultricies. Pellentesque mattis pharetra sollicitudin. Etiam faucibus, nibh et finibus malesuada, dui nisl mattis nibh, mattis dictum velit purus quis ipsum. Suspendisse leo dui, facilisis sit amet erat et, tincidunt imperdiet ligula. Nunc dictum mauris nulla, non fringilla erat mollis quis. Maecenas sit amet blandit nisi, eget blandit mauris. Nam non placerat risus, vel ultricies elit. Nullam viverra erat non ante venenatis posuere. Cras bibendum elementum sem, et accumsan nunc scelerisque a. Nullam non molestie dui. Pellentesque placerat dui nec justo placerat, bibendum interdum nisl aliquam. Nam laoreet magna velit, ac facilisis ipsum porttitor ac. Morbi nec eros sit amet sem efficitur tristique sit amet non tellus. Maecenas ac tellus gravida, accumsan odio semper, pretium orci. ",
       "content": "",
       "url": "/projects#project-b",
-      "date": "2026-05-04T22:16:57.160Z",
+      "date": "2026-05-14T15:26:33.363Z",
       "type": "project",
       "tags": [
         "Framework A",
@@ -89,7 +89,7 @@
       "description": "Abstrak Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget dui vel enim viverra ultricies. Pellentesque mattis pharetra sollicitudin. Etiam faucibus, nibh et finibus malesuada, dui nisl mattis nibh, mattis dictum velit purus quis ipsum. Suspendisse leo dui, facilisis sit amet erat et, tincidunt imperdiet ligula. Nunc dictum mauris nulla, non fringilla erat mollis quis. Maecenas sit amet blandit nisi, eget blandit mauris. Nam non placerat risus, vel ultricies elit. Nullam viverra erat non ante venenatis posuere. Cras bibendum elementum sem, et accumsan nunc scelerisque a. Nullam non molestie dui. Pellentesque placerat dui nec justo placerat, bibendum interdum nisl aliquam. Nam laoreet magna velit, ac facilisis ipsum porttitor ac. Morbi nec eros sit amet sem efficitur tristique sit amet non tellus. Maecenas ac tellus gravida, accumsan odio semper, pretium orci. ",
       "content": "",
       "url": "/projects#project-c",
-      "date": "2026-05-04T22:16:57.160Z",
+      "date": "2026-05-14T15:26:33.363Z",
       "type": "project",
       "tags": [
         "Framework A",
@@ -99,7 +99,7 @@
       ]
     }
   ],
-  "generatedAt": "2026-05-04T22:16:57.160Z",
+  "generatedAt": "2026-05-14T15:26:33.363Z",
   "totalItems": 7,
   "blogCount": 4,
   "projectCount": 3

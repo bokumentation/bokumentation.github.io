@@ -4,7 +4,7 @@ import type { IconMap, SocialLink, Site } from '@/types'
 export const SITE: Site = {
   title: 'Bokumentation',
   description:
-    'This are my boku blog',
+    'Personal blog about embedded systems, low-level programming, and cinematography. Documentation and notes from my journey through hardware and software.',
   href: import.meta.env.PUBLIC_WEBSITE_URL,
   author: 'Ibe Ibrahim',
   locale: 'en-US',
