@@ -1,6 +1,6 @@
 ---
 import { SITE } from '@/consts'
-import { isSubpost } from '@/lib/data-utils'
+import { isSubpost, getPostReadingTime } from '@/lib/data-utils'
 import type { CollectionEntry } from 'astro:content'
 
 interface Props {
@@ -22,20 +22,21 @@ const authors = post.data.authors || [SITE.author]
 
 const image = new URL('/static/1200x630.png', Astro.site)
 
-const postImage = post?.data?.image?.src
-  ? post.data.image.src
-  : null
+const postImage = post?.data?.image?.src ? post.data.image.src : null
 
-const postDate = post.data.date ? new Date(post.data.date).toISOString() : new Date().toISOString()
+const postDate = post.data.date
+  ? new Date(post.data.date).toISOString()
+  : new Date().toISOString()
 
-const postImageForSEO = postImage
-  ? `${siteHref}${postImage}`
-  : image.href
+const postImageForSEO = postImage ? `${siteHref}${postImage}` : image.href
 
 // For subposts: noindex to avoid duplicate content
 const isSubpostPost = isSubpost(post.id)
 
 const allTags = post.data.tags || []
+const postReadingTime = await getPostReadingTime(post.id)
+const readingTimeMinutes = parseInt(postReadingTime.split(' ')[0]) || 3
+const timeRequiredISO = `PT${readingTimeMinutes}M`
 
 // Keywords array
 const keywordArray = [
@@ -46,7 +47,7 @@ const keywordArray = [
   'documentation',
   'tutorial',
   'ibe ibrahim',
-  'bumentation'
+  'bokumentation',
 ]
 ---
 
@@ -54,7 +55,10 @@ const keywordArray = [
 <meta name="description" content={description} />
 
 <!-- Canonical URL: point to main post URL, not subpost -->
-<link rel="canonical" href={isSubpostPost ? `${siteHref}/blog/${post.id}` : Astro.url.href} />
+<link
+  rel="canonical"
+  href={isSubpostPost ? `${siteHref}/blog/${post.id}` : Astro.url.href}
+/>
 
 <!-- Robots: noindex for subposts to avoid duplicate content -->
 {isSubpostPost && <meta name="robots" content="noindex, follow" />}
@@ -82,9 +86,9 @@ const keywordArray = [
 <!-- Article-specific tags -->
 <meta property="article:published_time" content={postDate} />
 <meta property="article:modified_time" content={postDate} />
-{authors.map(a => <meta property="article:author" content={a} />)}
+{authors.map((a) => <meta property="article:author" content={a} />)}
 <meta property="article:section" content="Technology" />
-{allTags.map(tag => <meta property="article:tag" content={tag} />)}
+{allTags.map((tag) => <meta property="article:tag" content={tag} />)}
 
 <!-- Twitter Card (Large Image) -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -94,7 +98,7 @@ const keywordArray = [
 <meta name="twitter:image:alt" content={title} />
 <meta name="twitter:creator" content="@bokumentation" />
 <meta name="twitter:site" content="@bokumentation" />
-<meta name="twitter:domain" content="bokumentation.vercel.app" />
+<meta name="twitter:domain" content="bokumentation.site" />
 
 <!-- Additional SEO Meta Tags -->
 <meta name="author" content={author} />
@@ -105,7 +109,10 @@ const keywordArray = [
 <meta name="audience" content="developers, programmers, tech enthusiasts" />
 
 <!-- JSON-LD Structured Data: BlogPosting -->
-<script is:inline type="application/ld+json" set:html={`{
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={`{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "mainEntityOfPage": {
@@ -138,11 +145,20 @@ const keywordArray = [
   },
   "keywords": "${keywordArray.join(', ')}",
   "articleSection": "Technology",
-  "inLanguage": "${SITE.locale}"
-}`} />
+  "timeRequired": "${timeRequiredISO}",
+  "inLanguage": "${SITE.locale}",
+  "about": {
+    "@type": "Thing",
+    "name": "${keywordArray.slice(0, 3).join(', ')}"
+  }
+}`}
+/>
 
 <!-- JSON-LD Structured Data: Organization -->
-<script is:inline type="application/ld+json" set:html={`{
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={`{
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": "${siteHref}#organization",
@@ -155,14 +171,18 @@ const keywordArray = [
     "height": 60
   },
   "sameAs": [
-    "https://github.com/bumentation",
-    "https://youtube.com/@bumentation",
+    "https://github.com/bokumentation",
+    "https://youtube.com/@bokumentation",
     "https://instagram.com/bokumentation"
   ]
-}`} />
+}`}
+/>
 
 <!-- JSON-LD Structured Data: WebSite (SearchAction) -->
-<script is:inline type="application/ld+json" set:html={`{
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={`{
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": "${siteHref}#website",
@@ -177,10 +197,14 @@ const keywordArray = [
     "target": "${siteHref}?q={search_term_string}",
     "query-input": "required name=search_term_string"
   }
-}`} />
+}`}
+/>
 
 <!-- JSON-LD Structured Data: BreadcrumbList -->
-<script is:inline type="application/ld+json" set:html={`{
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={`{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
@@ -202,11 +226,28 @@ const keywordArray = [
       "name": "${title}"
     }
   ]
-}`} />
+}`}
+/>
 
-<!-- Performance: Preconnect to external domains -->
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+<!-- JSON-LD Structured Data: Person (Author) -->
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={`{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "${siteHref}#author",
+  "name": "${author}",
+  "url": "${siteHref}",
+  "image": "${siteHref}/static/logo.png",
+  "jobTitle": "Software Engineer",
+  "sameAs": [
+    "https://github.com/bokumentation",
+    "https://youtube.com/@bokumentation",
+    "https://instagram.com/bokumentation"
+  ]
+}`}
+/>
 
-<!-- Performance: DNS prefetch -->
+<!-- Performance: DNS prefetch for external resources -->
 <link rel="dns-prefetch" href="//www.google-analytics.com" />
