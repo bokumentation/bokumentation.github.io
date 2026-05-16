@@ -37,6 +37,43 @@ import Favicons from './Favicons.astro'
     href={new URL('rss.xml', Astro.site)}
   />
 
+  <!-- Font preloads to eliminate FOUT on mobile -->
+  <link
+    rel="preload"
+    href="/fonts/dm-sans-v17-latin-regular.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="/fonts/dm-sans-v17-latin-700.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="/fonts/merriweather-v33-latin-regular.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="/fonts/merriweather-v33-latin-italic.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="/fonts/merriweather-v33-latin-700.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+
   <Favicons />
 
   <slot />
