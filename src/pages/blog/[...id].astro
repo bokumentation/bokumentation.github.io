@@ -38,8 +38,6 @@ const post = Astro.props
 const currentPostId = Astro.params.id
 const { Content } = await render(post)
 
-// const authors = await parseAuthors(post.data.authors ?? [])
-
 const isCurrentSubpost = isSubpost(currentPostId)
 const navigation = await getAdjacentPosts(currentPostId)
 const parentPost = isCurrentSubpost ? await getParentPost(currentPostId) : null
@@ -72,7 +70,7 @@ const tocSections = await getTOCSections(currentPostId)
     <div class="lg:flex lg:justify-between">
       <!-- START MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
       <section
-        class="lg:border-accent flex grow flex-col gap-y-6 sm:max-w-4xl lg:w-4xl lg:rounded-xl lg:border lg:p-4 xl:w-4xl"
+        class="sm:border-accent sm:bg-card flex grow flex-col gap-y-6 sm:max-w-3xl sm:rounded-xl sm:border sm:p-4"
       >
         <!-- START BREADCRUMBS NAVIGATION -->
         <section id="breadcrumbs" class="hidden w-full sm:block">
@@ -188,8 +186,8 @@ const tocSections = await getTOCSections(currentPostId)
         </section>
         <!-- END BLOG POST TITLE AND INFORMATION -->
 
-        <!-- BLOG POST MAIN CONTENT ARTICLE Original: prose col-start-2 -->
-        <section class="lg:p-4">
+        <!-- BLOG POST MAIN CONTENT ARTICLE -->
+        <section>
           <article class="prose">
             <Content />
           </article>

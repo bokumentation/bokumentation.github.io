@@ -22,6 +22,9 @@ const { page } = Astro.props
 
 const postsByYear = groupPostsByYear(page.data)
 const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
+
+// Flatten to know which post is first (it gets priority loading)
+let globalIdx = 0
 ---
 
 <Layout class="max-w-3xl">
@@ -33,24 +36,37 @@ const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a))
     ]}
   />
 
-  <h1 class="tracking-title mb-2 text-2xl font-semibold">Blog</h1>
-
   <!-- Search Bar for Blog -->
   <div class="my-6">
     <SearchBar pageType="blog" />
+  </div>
+
+  <div>
+    <h1
+      class="tracking-title mb-4 font-[family-name:var(--font-heading)] text-2xl font-bold"
+    >
+      Blog posts
+    </h1>
+    <div class="prose mb-4">
+      <p class="text-foreground mt-0">Read my latest blog posts</p>
+    </div>
   </div>
 
   <div class="flex min-h-[calc(100vh-18rem)] flex-col gap-y-8">
     {
       years.map((year) => (
         <section class="flex flex-col gap-y-4">
-          <div class="font-medium">{year}</div>
-          <ul class="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {postsByYear[year].map((post) => (
-              <li>
-                <BlogCard entry={post} />
-              </li>
-            ))}
+          <div class="text-sm font-medium">{year}</div>
+          <ul class="grid grid-cols-2 gap-3 max-[480px]:grid-cols-1">
+            {postsByYear[year].map((post) => {
+              const isFirst = globalIdx === 0
+              globalIdx++
+              return (
+                <li>
+                  <BlogCard entry={post} priority={isFirst} />
+                </li>
+              )
+            })}
           </ul>
         </section>
       ))

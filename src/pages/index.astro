@@ -14,30 +14,35 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
 
   <div class="flex flex-col gap-24 py-12">
     <!-- Hero Section -->
-    <section class="flex flex-col items-center text-center max-w-3xl mx-auto">
-      <div class="mb-6 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium bg-secondary text-secondary-foreground shadow-border">
+    <section class="mx-auto flex max-w-3xl flex-col items-center text-center">
+      <div
+        class="bg-secondary text-secondary-foreground shadow-border mb-6 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
+      >
         Academic Blog
       </div>
 
-      <h1 class="text-2xl sm:text-3xl font-semibold tracking-title mb-6 leading-[1.1]">
+      <h1
+        class="tracking-title mb-6 text-2xl leading-[1.1] font-semibold sm:text-3xl"
+      >
         Documentation, refined through research and practice
       </h1>
 
-      <p class="text-sm text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-        Low-level system programming, embedded development, and cinematography. 
-        Exploring the intersection of hardware and software through technical documentation.
+      <p class="text-muted-foreground mb-8 max-w-2xl text-sm leading-relaxed">
+        Low-level system programming, embedded development, and cinematography.
+        Exploring the intersection of hardware and software through technical
+        documentation.
       </p>
 
       <div class="flex items-center gap-4">
         <a
           href="/blog"
-          class="inline-flex items-center justify-center rounded-md bg-foreground text-background px-5 py-2.5 text-sm font-medium hover:bg-foreground/90 transition-colors shadow-border"
+          class="bg-foreground text-background hover:bg-foreground/90 shadow-border inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium transition-colors"
         >
           Read the blog
         </a>
         <a
           href="/about"
-          class="inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium hover:bg-secondary transition-colors shadow-border"
+          class="hover:bg-secondary shadow-border inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium transition-colors"
         >
           About me
         </a>
@@ -49,26 +54,30 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
     </section>
 
     <!-- Blog Section -->
-    <section class="flex flex-col gap-8 max-w-3xl mx-auto w-full">
+    <section class="mx-auto flex w-full max-w-3xl flex-col gap-8">
       <div class="flex items-center justify-between">
         <div>
-          <h2 class="text-2xl font-semibold tracking-heading">Latest posts</h2>
-          <p class="text-muted-foreground text-sm mt-1">Recent articles and tutorials</p>
+          <h2 class="tracking-heading text-lg font-semibold">Latest posts</h2>
+          <p class="text-muted-foreground mt-1 text-sm">
+            Recent articles and tutorials
+          </p>
         </div>
         <a
           href="/blog"
-          class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          class="text-muted-foreground hover:text-foreground text-sm transition-colors"
         >
           View all &rarr;
         </a>
       </div>
 
-      <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {blog.map((post) => (
-          <li>
-            <BlogCard entry={post} />
-          </li>
-        ))}
+      <ul class="grid grid-cols-2 gap-3 max-[480px]:grid-cols-1">
+        {
+          blog.map((post, i) => (
+            <li>
+              <BlogCard entry={post} priority={i === 0} />
+            </li>
+          ))
+        }
       </ul>
     </section>
   </div>
