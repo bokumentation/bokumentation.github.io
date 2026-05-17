@@ -60,7 +60,7 @@ const MobileMenu = () => {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="text-lg font-medium py-4 border-b border-border text-foreground/80 hover:text-foreground transition-colors"
+                  className="text-lg font-heading font-medium py-4 border-b border-border text-foreground/80 hover:text-foreground transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}

@@ -66,11 +66,13 @@ const tocSections = await getTOCSections(currentPostId)
     )
   }
   <!-- MAIN DIV -->
-  <div class="w-full items-center justify-center lg:flex">
-    <div class="lg:flex lg:justify-between">
+  <div
+    class="mx-auto w-full max-w-[1280px] items-center justify-center lg:flex"
+  >
+    <div class="lg:flex lg:gap-4">
       <!-- START MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
       <section
-        class="sm:border-accent sm:bg-card flex grow flex-col gap-y-6 sm:max-w-3xl sm:rounded-xl sm:border sm:p-4"
+        class="sm:border-accent sm:bg-card flex min-w-0 flex-1 flex-col gap-y-6 sm:rounded-xl sm:border sm:p-4"
       >
         <!-- START BREADCRUMBS NAVIGATION -->
         <section id="breadcrumbs" class="hidden w-full sm:block">
@@ -205,7 +207,9 @@ const tocSections = await getTOCSections(currentPostId)
       <!-- END MAIN ARTICLE BREADCRUM IMAGE TITLE CONTENT POST NAV -->
 
       <!-- START OF SIDE BAR -->
-      <div class="hidden w-[300px] lg:px-2 xl:block">
+      <div
+        class="hidden max-w-(--pane-max-width) min-w-(--pane-min-width) shrink-0 pt-4 xl:block"
+      >
         <!-- IF BLOG HAS SUBPOST, THIS IS SUB POST SIDE BAR -->
         <div id="subpost-sidebar">
           {

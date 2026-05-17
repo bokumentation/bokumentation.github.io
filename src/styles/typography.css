@@ -31,7 +31,7 @@
     @apply [&>link[rel="stylesheet"]+*]:mt-0! [&>link[rel="stylesheet"]+*>*]:mt-0!;
 
     :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply text-foreground my-1.5;
+      @apply text-foreground mt-0 mb-5;
     }
 
     :where(h1, h2, h3, h4, h5, h6):not(
@@ -70,11 +70,11 @@
     }
 
     :where(ul):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply marker:text-foreground my-1.5 ml-6 list-disc [&>li]:mt-1;
+      @apply marker:text-foreground mt-0 mb-5 ml-6 list-disc [&>li]:mt-1;
     }
 
     :where(ol):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply marker:text-foreground my-1.5 ml-6 list-decimal [&>li]:mt-1;
+      @apply marker:text-foreground mt-0 mb-5 ml-6 list-decimal [&>li]:mt-1;
       @apply [&[type='A']]:list-[upper-alpha] [&[type='I']]:list-[upper-roman] [&[type='a']]:list-[lower-alpha] [&[type='i']]:list-[lower-roman];
     }
 
@@ -85,7 +85,7 @@
     :where(ul ul, ol ol, ul ol, ol ul):not(
         :where([class~='not-prose'], [class~='not-prose'] *)
       ) {
-      @apply marker:text-foreground my-1.5 ml-6;
+      @apply marker:text-foreground my-0 ml-6;
     }
 
     :where(code):not(:where([class~='not-prose'], [class~='not-prose'] *)) {

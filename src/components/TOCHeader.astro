@@ -15,9 +15,9 @@ const { headings } = Astro.props
   headings && headings.length > 0 && (
     <div id="mobile-toc-container" class="border-accent w-full xl:hidden">
       <details id="mobile-toc-details" class="group">
-        <summary class="flex w-full items-center justify-between cursor-pointer list-none">
-          <div class="mx-auto flex w-full max-w-3xl items-center px-4 py-3">
-            <span class="text-muted-foreground flex-grow truncate text-sm">
+        <summary class="group-open:border-border flex w-full cursor-pointer list-none items-center justify-between border-b border-transparent">
+          <div class="mx-auto flex w-full max-w-3xl items-center px-4 py-2">
+            <span class="text-muted-foreground flex-grow truncate text-xs font-bold">
               Table of Contents
             </span>
             <span class="text-muted-foreground ml-2">
@@ -29,19 +29,11 @@ const { headings } = Astro.props
           </div>
         </summary>
 
-        <ScrollArea
-          client:load
-          className="mx-auto max-w-3xl"
-        >
+        <ScrollArea client:load className="mx-auto max-w-3xl">
           <div class="max-h-[40vh] overflow-y-auto">
-            <ul class="flex list-none flex-col gap-y-3 px-8 pb-6">
+            <ul class="flex list-none flex-col gap-y-1.5 px-8 pb-4">
               {headings.map((heading) => (
-                <li
-                  class={cn(
-                    'text-sm',
-                    getHeadingMargin(heading.depth),
-                  )}
-                >
+                <li class={cn('text-xs', getHeadingMargin(heading.depth))}>
                   <a
                     href={`#${heading.slug}`}
                     class="mobile-toc-link text-foreground/70 hover:text-foreground transition-colors duration-200"

@@ -1,6 +1,18 @@
 # Changelog
 
-## [Unreleased] — 2026-05-05
+## [Unreleased] — 2026-05-18
+
+### Layout & UI
+
+- Redesign blog post layout to GitHub-style: sticky sidebar with scroll-aware TOC
+- Add sidebar pane CSS variables (`--pane-min-width`, `--pane-max-width`)
+- Add horizontal divider under "Table of Contents" in both desktop and mobile TOCs
+- Reduce TOC font size and list spacing for tighter fit
+- Make "Table of Contents" label bold in both TOCs
+- Adjust dark mode foreground for improved contrast
+- Widen paragraph spacing and fix list margins for better readability
+- Match code block title size to body text
+- Align navigation to the right with `font-heading` applied
 
 ### Config
 

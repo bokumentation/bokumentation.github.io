@@ -23,8 +23,9 @@ const parentId = isCurrentSubpost ? getParentId(currentPostId) : currentPostId
         type="hover"
         data-toc-scroll-area
       >
-        <div class="flex flex-col gap-2 px-4">
-          <span class="text-sm font-medium">Table of Contents</span>
+        <div class="flex flex-col gap-1.5 px-4">
+          <span class="text-xs font-bold">Table of Contents</span>
+          <div class="bg-border h-px" />
           {sections.map((section, index) => {
             const isFirstSubpost =
               section.type === 'subpost' &&
@@ -43,11 +44,11 @@ const parentId = isCurrentSubpost ? getParentId(currentPostId) : currentPostId
                 )}
 
                 {section.type === 'parent' ? (
-                  <ul class="flex list-none flex-col gap-y-2">
+                  <ul class="flex list-none flex-col gap-y-1">
                     {section.headings.map((heading) => (
                       <li
                         class={cn(
-                          'text-sm',
+                          'text-xs',
                           getHeadingMargin(heading.depth),
                           isCurrentSubpost
                             ? 'text-foreground/40'
@@ -75,10 +76,10 @@ const parentId = isCurrentSubpost ? getParentId(currentPostId) : currentPostId
                       section.subpostId === currentPostId ? 'bg-muted/50' : '',
                     )}
                   >
-                    <ul class="flex list-none flex-col gap-y-2">
+                    <ul class="flex list-none flex-col gap-y-1">
                       <li
                         class={cn(
-                          'text-xs font-medium',
+                          'text-[11px] font-medium',
                           section.subpostId === currentPostId
                             ? 'text-foreground'
                             : 'text-foreground/60',
@@ -103,7 +104,7 @@ const parentId = isCurrentSubpost ? getParentId(currentPostId) : currentPostId
                       {section.headings.map((heading) => (
                         <li
                           class={cn(
-                            'text-xs',
+                            'text-[11px]',
                             getHeadingMargin(heading.depth),
                             section.subpostId === currentPostId
                               ? 'text-foreground/60'
