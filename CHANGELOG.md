@@ -1,6 +1,13 @@
 # Changelog
 
-## [Unreleased] — 2026-05-18
+## [Unreleased] — 2026-05-25
+
+### SEO
+
+- Add human-readable tab titles: Home → `Bokumentation`, Blog → `Bokumentation's blogs`, Projects → `Bokumentation's projects`, About → `Bokumentation's about me`
+- Add missing `<title>` tag to blog post pages (was only `<meta name="title">`)
+
+## [2026-05-18]
 
 ### Layout & UI
 

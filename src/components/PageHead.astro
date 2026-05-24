@@ -59,7 +59,19 @@ const allKeywords = [
 ].join(', ')
 ---
 
-<title>{`${title} | ${SITE.title}`}</title>
+<title>
+  {
+    title === 'Home'
+      ? `${SITE.title}`
+      : title === 'Blog'
+        ? `${SITE.title}'s blogs`
+        : title === 'Projects'
+          ? `${SITE.title}'s projects`
+          : title === 'About'
+            ? `${SITE.title}'s about me`
+            : `${title} - ${SITE.title}`
+  }
+</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
 <meta name="robots" content={noindex ? 'noindex, nofollow' : robots} />
