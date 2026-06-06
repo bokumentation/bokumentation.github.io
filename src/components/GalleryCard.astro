@@ -5,12 +5,10 @@ import type { CollectionEntry } from 'astro:content'
 const {
   entry,
   priority = false,
-  index,
   aspect = 'aspect-square',
 } = Astro.props as {
   entry: CollectionEntry<'gallery'>
   priority?: boolean
-  index?: number
   aspect?: string
 }
 ---

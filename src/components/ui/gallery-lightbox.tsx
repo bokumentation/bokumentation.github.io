@@ -82,7 +82,7 @@ const GalleryLightbox = ({ entries, initialIndex, onClose }: Props) => {
         {entries.map((entry, i) => (
           <div
             key={entry.id}
-            ref={(el) => (itemRefs.current[i] = el)}
+            ref={(el) => { itemRefs.current[i] = el }}
             data-index={i}
             className="flex flex-col items-center px-4 pt-6 pb-4 border-b border-border/30 last:border-b-0"
           >
