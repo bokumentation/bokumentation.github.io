@@ -1,0 +1,68 @@
+---
+import PageHead from '@/components/PageHead.astro'
+import GalleryGrid from '@/components/ui/gallery-grid'
+import Layout from '@/layouts/Layout.astro'
+import { getAllGalleries } from '@/lib/data-utils'
+
+const galleries = await getAllGalleries()
+---
+
+<Layout class="max-w-4xl">
+  <PageHead
+    slot="head"
+    title="Gallery"
+    description="Photo collections from my journeys."
+  />
+
+  <section>
+    <div class="mb-8">
+      <h1
+        class="tracking-title mb-2 font-[family-name:var(--font-heading)] text-2xl font-bold"
+      >
+        Gallery
+      </h1>
+      <p class="text-muted-foreground text-sm leading-relaxed">
+        Raw frames from the journey — landscapes, streets, and moments frozen in
+        time.
+      </p>
+    </div>
+
+    {
+      galleries.length > 0 ? (
+        <div>
+          <ul class="grid grid-cols-3 gap-0.5">
+            {galleries.map((entry, i) => (
+              <li>
+                <button
+                  data-gallery-index={i}
+                  class="bg-secondary block aspect-square w-full cursor-pointer overflow-hidden border-0 p-0"
+                >
+                  <img
+                    src={entry.data.image.src}
+                    alt={entry.data.title}
+                    class="h-full w-full object-cover"
+                    loading={i < 6 ? 'eager' : 'lazy'}
+                    decoding={i < 6 ? 'sync' : 'async'}
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <GalleryGrid entries={galleries} client:load />
+        </div>
+      ) : (
+        <div class="text-muted-foreground py-16 text-center">
+          <p class="text-lg font-medium">No photos yet.</p>
+          <p class="mt-1 text-sm">
+            Coming soon — add your first photo to{' '}
+            <code class="bg-secondary rounded px-1.5 py-0.5 text-xs">
+              src/content/gallery/
+            </code>
+            .
+          </p>
+        </div>
+      )
+    }
+  </section>
+</Layout>

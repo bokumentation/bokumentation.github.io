@@ -4,7 +4,7 @@ import type { IconMap, SocialLink, Site } from '@/types'
 export const SITE: Site = {
   title: 'Bokumentation',
   description:
-    'Personal blog about embedded systems, low-level programming, and cinematography. Documentation and notes from my journey through hardware and software.',
+    'Exploring life in full resolution — through code, cinematic colors, and dirt roads. Home lab and logbook of Ibe Ibrahim.',
   href: import.meta.env.PUBLIC_WEBSITE_URL,
   author: 'Ibe Ibrahim',
   locale: 'en-US',
@@ -24,6 +24,10 @@ export const NAV_LINKS: SocialLink[] = [
   {
     href: '/projects',
     label: 'projects',
+  },
+  {
+    href: '/gallery',
+    label: 'gallery',
   },
   {
     href: '/about',

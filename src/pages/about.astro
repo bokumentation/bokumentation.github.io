@@ -8,11 +8,11 @@ import { getAllAuthors } from '@/lib/data-utils'
 const authors = await getAllAuthors()
 ---
 
-<Layout class="max-w-3xl px-4 sm:px-6">
+<Layout class="max-w-3xl">
   <PageHead slot="head" title="About" />
   <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
 
-  <section class="mb-8">
+  <section class="mb-12">
     <h1
       class="tracking-title mb-4 font-[family-name:var(--font-heading)] text-2xl font-bold"
     >
@@ -33,47 +33,35 @@ const authors = await getAllAuthors()
         )
       }
     </div>
-    <div class="prose prose-sm sm:prose-base">
-      <p class="mt-0">The Original Name</p>
-    </div>
   </section>
 
   <section class="mb-8">
     <h2
       class="tracking-title mb-4 font-[family-name:var(--font-heading)] text-2xl font-bold"
     >
-      Behind the Scene
+      Belakang Layar
     </h2>
     <div class="prose prose-sm sm:prose-base mb-4">
       <p class="mt-0">
-        This website is built with Astro, a modern static site generator that
-        delivers fast, content-focused websites. The project leverages Astro's
-        islands architecture for optimal performance and uses Tailwind CSS v4
-        for styling.
+        "Hidup seperti sekumpulan tempe, tidak ada yang tahu.."
+      </p>
+
+      <p class="mt-0">
+        Hidup kadang ada saja "plot-twistnya". Kadang apa yang kita mau
+        dikabulkan, kadang pula tidak. Seperti halnya blog ini yang saya pun
+        bingung mau nulis apa hiahaha...
       </p>
       <p>
-        The site features a content collection system for managing blog posts,
-        projects, authors, and now education history. All content is written in
-        Markdown/MDX and automatically optimized for production builds.
+        Selain juga untuk portofolio dan asik-asik, saya sangat suka menulis
+        maupun cerita apa yang saya alami selama masa hidup saya.
       </p>
-      <p>Key technologies used in this project include:</p>
-      <ul>
-        <li>
-          <strong>Astro</strong> - Static site generation and component framework
-        </li>
-        <li><strong>Tailwind CSS v4</strong> - Utility-first CSS framework</li>
-        <li><strong>TypeScript</strong> - Type-safe JavaScript development</li>
-        <li><strong>MDX</strong> - Markdown with JSX components</li>
-        <li><strong>React components</strong> - Interactive UI elements</li>
-        <li>
-          <strong>Lucide Icons</strong> - Beautiful, consistent iconography
-        </li>
-      </ul>
       <p>
-        The site is deployed on GitHub Pages and automatically builds with every
-        push to the main branch, ensuring the latest content is always available
-        to visitors.
+        Saya suka jalan-jalan, apalagi bawa kamera. Kalimat "Mas, boleh minta
+        tolong fotoin sebentar?", selalu saja terlontarkan. Baik itu temen
+        sendiri maupun orang-orang random yang tak kenal sama sekali.
       </p>
+
+      <p>To-do-next...</p>
     </div>
   </section>
 </Layout>

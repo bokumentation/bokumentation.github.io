@@ -1,39 +1,75 @@
 ---
 import BlogCard from '@/components/BlogCard.astro'
+import GalleryCard from '@/components/GalleryCard.astro'
 import PageHead from '@/components/PageHead.astro'
 import { SITE, SOCIAL_LINKS } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
-import { getRecentPosts } from '@/lib/data-utils'
+import { getRecentPosts, getRecentGalleries } from '@/lib/data-utils'
 import SocialIcons from '@/components/SocialIcons.astro'
 
-const blog = await getRecentPosts(SITE.featuredPostCount)
+const blog = await getRecentPosts(4)
+const galleries = await getRecentGalleries(4)
 ---
 
-<Layout class="">
+<Layout class="relative">
   <PageHead slot="head" title="Home" />
 
   <div class="flex flex-col gap-24 py-12">
     <!-- Hero Section -->
-    <section class="mx-auto flex max-w-3xl flex-col items-center text-center">
+    <section
+      class="hero-section relative mx-auto flex max-w-3xl flex-col items-center text-center"
+    >
       <div
-        class="bg-secondary text-secondary-foreground shadow-border mb-6 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
+        class="grid-bg pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+        aria-hidden="true"
       >
-        Academic Blog
       </div>
 
+      <img
+        src="/about-boku-2.jpg"
+        alt="Ibe Ibrahim"
+        class="hero-name shadow-border mb-6 size-28 rounded-full object-cover"
+      />
+
       <h1
-        class="tracking-title mb-6 text-2xl leading-[1.1] font-semibold sm:text-3xl"
+        class="hero-name text-2xl leading-[1.1] font-semibold tracking-[-0.02em] sm:text-2xl"
       >
-        Documentation, refined through research and practice
+        Hi, I'm Ibe Ibrahim
       </h1>
 
-      <p class="text-muted-foreground mb-8 max-w-2xl text-sm leading-relaxed">
-        Low-level system programming, embedded development, and cinematography.
-        Exploring the intersection of hardware and software through technical
-        documentation.
+      <h2
+        class="hero-name text-xl leading-[1.1] font-semibold tracking-[-0.02em] sm:text-xl"
+      >
+        <br /> Welcome to the Bokumentation!
+      </h2>
+
+      <p
+        class="hero-stanza text-muted-foreground mt-6 max-w-2xl text-sm leading-relaxed sm:text-base"
+      >
+        Exploring life in full resolution,<br class="hidden sm:inline" />
+        whether through the logic of code,<br class="hidden sm:inline" />
+        the emotion of cinematic color spaces,<br class="hidden sm:inline" />
+        or the unpredictability of dirt roads.
       </p>
 
-      <div class="flex items-center gap-4">
+      <p
+        class="hero-stanza text-muted-foreground mt-4 max-w-2xl text-sm leading-relaxed sm:text-base"
+      >
+        And along those dusty roads,<br class="hidden sm:inline" />
+        my camera becomes a tool to freeze time.<br class="hidden sm:inline" />
+        I capture the raw, unscripted moments of the journey,<br
+          class="hidden sm:inline"
+        />
+        turning simple frames into reasons for people to smile.
+      </p>
+
+      <p
+        class="hero-welcome text-muted-foreground mt-4 max-w-2xl text-sm leading-relaxed italic"
+      >
+        Welcome to my home lab and logbook.
+      </p>
+
+      <div class="hero-actions mt-6 flex items-center gap-4">
         <a
           href="/blog"
           class="bg-foreground text-background hover:bg-foreground/90 shadow-border inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium transition-colors"
@@ -48,37 +84,159 @@ const blog = await getRecentPosts(SITE.featuredPostCount)
         </a>
       </div>
 
-      <div class="mt-8 flex items-center gap-4">
+      <div class="hero-socials mt-6 flex items-center gap-4">
         <SocialIcons links={SOCIAL_LINKS} />
       </div>
     </section>
 
-    <!-- Blog Section -->
+    <!-- Content Grid: Blog + Photography -->
     <section class="mx-auto flex w-full max-w-3xl flex-col gap-8">
-      <div class="flex items-center justify-between">
-        <div>
-          <h2 class="tracking-heading text-lg font-semibold">Latest posts</h2>
-          <p class="text-muted-foreground mt-1 text-sm">
-            Recent articles and tutorials
-          </p>
+      <div class="grid grid-cols-1 gap-12">
+        <!-- Blog Posts Column -->
+        <div class="flex flex-col gap-4">
+          <div>
+            <h2 class="tracking-heading text-lg font-semibold">Blog Posts</h2>
+            <p class="text-muted-foreground mt-1 text-sm">
+              Code, embedded, and stories
+            </p>
+          </div>
+          <ul class="grid grid-cols-2 gap-3 max-[480px]:grid-cols-1">
+            {
+              blog.map((post, i) => (
+                <li>
+                  <BlogCard entry={post} priority={i === 0} />
+                </li>
+              ))
+            }
+          </ul>
+          <a
+            href="/blog"
+            class="text-muted-foreground hover:text-foreground self-end text-sm transition-colors"
+          >
+            View all posts &rarr;
+          </a>
         </div>
-        <a
-          href="/blog"
-          class="text-muted-foreground hover:text-foreground text-sm transition-colors"
-        >
-          View all &rarr;
-        </a>
-      </div>
 
-      <ul class="grid grid-cols-2 gap-3 max-[480px]:grid-cols-1">
-        {
-          blog.map((post, i) => (
-            <li>
-              <BlogCard entry={post} priority={i === 0} />
-            </li>
-          ))
-        }
-      </ul>
+        <!-- Photography Column -->
+        <div class="flex flex-col gap-4">
+          <div>
+            <h2 class="tracking-heading text-lg font-semibold">Photography</h2>
+            <p class="text-muted-foreground mt-1 text-sm">
+              Frames from the journey
+            </p>
+          </div>
+          {
+            galleries.length > 0 ? (
+              <>
+                <ul class="grid grid-cols-2 gap-3 max-[480px]:grid-cols-1">
+                  {galleries.map((entry, i) => (
+                    <li>
+                      <GalleryCard
+                        entry={entry}
+                        priority={i < 2}
+                        aspect="aspect-video"
+                      />
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="/gallery"
+                  class="text-muted-foreground hover:text-foreground self-end text-sm transition-colors"
+                >
+                  View gallery &rarr;
+                </a>
+              </>
+            ) : (
+              <div class="text-muted-foreground flex flex-col items-center justify-center gap-2 rounded-md border border-dashed px-4 py-12 text-sm">
+                <span class="text-2xl">📷</span>
+                <span>Photos coming soon.</span>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section
+      class="mx-auto flex w-full max-w-3xl flex-col items-center text-center"
+    >
+      <div
+        class="quote-card relative flex aspect-video w-full max-w-xl flex-col items-center justify-center overflow-hidden rounded-md border border-current/20"
+      >
+        <div
+          class="grid-bg pointer-events-none absolute inset-0 -z-10"
+          aria-hidden="true"
+        >
+        </div>
+        <blockquote
+          class="text-muted-foreground px-6 text-sm leading-relaxed italic"
+        >
+          &ldquo;Sebaik-baiknya manusia adalah dia yang bermanfaat bagi yang
+          lain.&rdquo;
+        </blockquote>
+      </div>
     </section>
   </div>
 </Layout>
+
+<style>
+  .hero-section {
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .grid-bg {
+    --grid-color: var(--border);
+    --grid-size: 40px;
+    background-image:
+      linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    mask-image: radial-gradient(
+      ellipse 90% 80% at 50% 40%,
+      black 50%,
+      transparent 80%
+    );
+    opacity: 0.4;
+  }
+
+  :global([data-theme='dark']) .grid-bg {
+    opacity: 1;
+  }
+
+  .hero-name {
+    animation: fadeUp 0.8s ease-out both;
+  }
+
+  .hero-stanza {
+    animation: fadeUp 0.8s 0.2s ease-out both;
+  }
+
+  .hero-welcome {
+    animation: fadeUp 0.8s 0.35s ease-out both;
+  }
+
+  .hero-actions {
+    animation: fadeUp 0.8s 0.5s ease-out both;
+  }
+
+  .hero-socials {
+    animation: fadeUp 0.8s 0.65s ease-out both;
+  }
+
+  .hero-pill {
+    animation: fadeUp 0.6s 0.7s ease-out both;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

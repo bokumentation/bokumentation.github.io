@@ -39,7 +39,8 @@ const MobileMenu = () => {
 
       {isOpen && (
         <div
-          className="fixed inset-0 z-[100] bg-background animate-in fade-in duration-200"
+          className="fixed inset-0 z-[100] bg-background"
+          style={{ animation: 'fadeIn 0.2s ease-out' }}
           role="dialog"
           aria-modal="true"
         >

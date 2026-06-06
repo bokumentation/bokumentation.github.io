@@ -1,4 +1,5 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content'
+import { SITE } from '@/consts'
 import { readingTime, calculateWordCountFromHtml } from '@/lib/utils'
 
 export async function getAllAuthors(): Promise<CollectionEntry<'authors'>[]> {
@@ -46,27 +47,6 @@ export async function getAllProjects(): Promise<CollectionEntry<'projects'>[]> {
     })
   } catch (error) {
     console.error('Error loading projects:', error)
-    return []
-  }
-}
-
-export async function getAllEducation(): Promise<CollectionEntry<'education'>[]> {
-  try {
-    const education = await getCollection('education')
-    return education.sort((a: CollectionEntry<'education'>, b: CollectionEntry<'education'>) => {
-      const orderA = a.data.order ?? 0
-      const orderB = b.data.order ?? 0
-      
-      if (orderA !== orderB) {
-        return orderA - orderB
-      }
-      
-      const dateA = a.data.startDate.getTime()
-      const dateB = b.data.startDate.getTime()
-      return dateB - dateA
-    })
-  } catch (error) {
-    console.error('Error loading education:', error)
     return []
   }
 }
@@ -169,6 +149,28 @@ export async function getPostsByTag(
     return posts.filter((post) => post.data.tags?.includes(tag))
   } catch (error) {
     console.error('Error loading posts by tag:', error)
+    return []
+  }
+}
+
+export async function getAllGalleries(): Promise<CollectionEntry<'gallery'>[]> {
+  try {
+    const galleries = await getCollection('gallery')
+    return galleries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  } catch (error) {
+    console.error('Error loading galleries:', error)
+    return []
+  }
+}
+
+export async function getRecentGalleries(
+  count: number,
+): Promise<CollectionEntry<'gallery'>[]> {
+  try {
+    const galleries = await getAllGalleries()
+    return galleries.slice(0, count)
+  } catch (error) {
+    console.error('Error loading recent galleries:', error)
     return []
   }
 }
@@ -394,12 +396,12 @@ export async function getTOCSections(postId: string): Promise<TOCSection[]> {
     }
 
     const subposts = await getSubpostsForParent(parentId)
-    
+
     const subpostSections = await Promise.all(
       subposts.map(async (subpost: CollectionEntry<'blog'>) => {
         const { headings: subpostHeadings } = await render(subpost)
         if (subpostHeadings.length === 0) return null
-        
+
         return {
           type: 'subpost' as const,
           title: subpost.data.title,

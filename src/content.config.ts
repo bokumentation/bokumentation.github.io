@@ -1,6 +1,21 @@
 import { glob } from 'astro/loaders'
 import { defineCollection, z } from 'astro:content'
 
+const gallery = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/gallery' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string().optional(),
+      date: z.coerce.date(),
+      image: image(),
+      camera: z.string().optional(),
+      lens: z.string().optional(),
+      location: z.string().optional(),
+      tags: z.array(z.string()).optional(),
+    }),
+})
+
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: ({ image }) =>
@@ -50,24 +65,4 @@ const projects = defineCollection({
     }),
 })
 
-const education = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/education' }),
-  schema: ({ image }) =>
-    z.object({
-      institution: z.string(),
-      degree: z.string(),
-      field: z.string().optional(),
-      startDate: z.coerce.date(),
-      endDate: z.coerce.date().optional(),
-      location: z.string().optional(),
-      gpa: z.string().optional(),
-      description: z.string().optional(),
-      achievements: z.array(z.string()).optional(),
-      courses: z.array(z.string()).optional(),
-      logo: image().optional(),
-      current: z.boolean().optional().default(false),
-      order: z.number().optional(),
-    }),
-})
-
-export const collections = { blog, authors, projects, education }
+export const collections = { gallery, blog, authors, projects }

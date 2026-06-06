@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets'
+import type { CollectionEntry } from 'astro:content'
+
+const {
+  entry,
+  priority = false,
+  index,
+  aspect = 'aspect-square',
+} = Astro.props as {
+  entry: CollectionEntry<'gallery'>
+  priority?: boolean
+  index?: number
+  aspect?: string
+}
+---
+
+<button
+  class={`group bg-transparent block ${aspect} w-full cursor-pointer overflow-hidden rounded-md border-0 p-0`}
+>
+  <Image
+    src={entry.data.image}
+    alt={entry.data.title}
+    class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+    width={400}
+    height={400}
+    loading={priority ? 'eager' : 'lazy'}
+    decoding={priority ? 'sync' : 'async'}
+  />
+</button>
