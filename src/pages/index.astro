@@ -1,14 +1,12 @@
 ---
 import BlogCard from '@/components/BlogCard.astro'
-import GalleryCard from '@/components/GalleryCard.astro'
 import PageHead from '@/components/PageHead.astro'
 import { SOCIAL_LINKS } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
-import { getRecentPosts, getRecentGalleries } from '@/lib/data-utils'
+import { getRecentPosts } from '@/lib/data-utils'
 import SocialIcons from '@/components/SocialIcons.astro'
 
 const blog = await getRecentPosts(4)
-const galleries = await getRecentGalleries(4)
 ---
 
 <Layout class="relative">
@@ -34,39 +32,14 @@ const galleries = await getRecentGalleries(4)
       <h1
         class="hero-name text-2xl leading-[1.1] font-semibold tracking-[-0.02em] sm:text-2xl"
       >
-        Hi, I'm Ibe Ibrahim
+        Hi, I'm Ibe Ibrahim & <br /> Welcome to the Bokumentation!
       </h1>
-
-      <h2
-        class="hero-name text-xl leading-[1.1] font-semibold tracking-[-0.02em] sm:text-xl"
-      >
-        <br /> Welcome to the Bokumentation!
-      </h2>
 
       <p
         class="hero-stanza text-muted-foreground mt-6 max-w-2xl text-sm leading-relaxed sm:text-base"
       >
         Exploring life in full resolution,<br class="hidden sm:inline" />
-        whether through the logic of code,<br class="hidden sm:inline" />
-        the emotion of cinematic color spaces,<br class="hidden sm:inline" />
-        or the unpredictability of dirt roads.
-      </p>
-
-      <p
-        class="hero-stanza text-muted-foreground mt-4 max-w-2xl text-sm leading-relaxed sm:text-base"
-      >
-        And along those dusty roads,<br class="hidden sm:inline" />
-        my camera becomes a tool to freeze time.<br class="hidden sm:inline" />
-        I capture the raw, unscripted moments of the journey,<br
-          class="hidden sm:inline"
-        />
-        turning simple frames into reasons for people to smile.
-      </p>
-
-      <p
-        class="hero-welcome text-muted-foreground mt-4 max-w-2xl text-sm leading-relaxed italic"
-      >
-        Welcome to my home lab and logbook.
+        a second job to supports my addiction.
       </p>
 
       <div class="hero-actions mt-6 flex items-center gap-4">
@@ -116,65 +89,6 @@ const galleries = await getRecentGalleries(4)
             View all posts &rarr;
           </a>
         </div>
-
-        <!-- Photography Column -->
-        <div class="flex flex-col gap-4">
-          <div>
-            <h2 class="tracking-heading text-lg font-semibold">Photography</h2>
-            <p class="text-muted-foreground mt-1 text-sm">
-              Frames from the journey
-            </p>
-          </div>
-          {
-            galleries.length > 0 ? (
-              <>
-                <ul class="grid grid-cols-2 gap-3 max-[480px]:grid-cols-1">
-                  {galleries.map((entry, i) => (
-                    <li>
-                      <GalleryCard
-                        entry={entry}
-                        priority={i < 2}
-                        aspect="aspect-video"
-                      />
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="/gallery"
-                  class="text-muted-foreground hover:text-foreground self-end text-sm transition-colors"
-                >
-                  View gallery &rarr;
-                </a>
-              </>
-            ) : (
-              <div class="text-muted-foreground flex flex-col items-center justify-center gap-2 rounded-md border border-dashed px-4 py-12 text-sm">
-                <span class="text-2xl">📷</span>
-                <span>Photos coming soon.</span>
-              </div>
-            )
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- Quote Section -->
-    <section
-      class="mx-auto flex w-full max-w-3xl flex-col items-center text-center"
-    >
-      <div
-        class="quote-card relative flex aspect-video w-full max-w-xl flex-col items-center justify-center overflow-hidden rounded-md border border-current/20"
-      >
-        <div
-          class="grid-bg pointer-events-none absolute inset-0 -z-10"
-          aria-hidden="true"
-        >
-        </div>
-        <blockquote
-          class="text-muted-foreground px-6 text-sm leading-relaxed italic"
-        >
-          &ldquo;Sebaik-baiknya manusia adalah dia yang bermanfaat bagi yang
-          lain.&rdquo;
-        </blockquote>
       </div>
     </section>
   </div>

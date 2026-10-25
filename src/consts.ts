@@ -48,10 +48,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
     href: import.meta.env.PUBLIC_INSTAGRAM_URL,
     label: 'Instagram',
   },
-  {
-    href: import.meta.env.PUBLIC_CONTACT_EMAIL ? `mailto:${import.meta.env.PUBLIC_CONTACT_EMAIL}` : '#',
-    label: 'Email',
-  },
 ]
 
 export const ICON_MAP: IconMap = {

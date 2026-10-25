@@ -1,6 +1,8 @@
 # Changelog
 
-## [Unreleased] — 2026-05-25
+## [2026-10-25]
+
+### Just remove some and update vulne
 
 ### SEO
 
