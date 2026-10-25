@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Create .env file for Astro build
         run: |
           echo "PUBLIC_WEBSITE_URL=${{ vars.PUBLIC_WEBSITE_URL }}" > .env
@@ -30,7 +30,9 @@ jobs:
           echo "PUBLIC_LINKEDIN_URL=${{ vars.PUBLIC_LINKEDIN_URL }}" >> .env
           echo "PUBLIC_TWITTER_URL=${{ vars.PUBLIC_TWITTER_URL }}" >> .env
       - name: Install, build, and upload your site
-        uses: withastro/action@v3
+        uses: withastro/action@v6
+        with:
+          node-version: 22
 
   deploy:
     needs: build
@@ -41,4 +43,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
