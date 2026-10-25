@@ -5,7 +5,7 @@ import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import icon from 'astro-icon'
 
-import { rehypeHeadingIds } from '@astrojs/markdown-remark'
+import { unified } from '@astrojs/markdown-remark'
 import expressiveCode from 'astro-expressive-code'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeKatex from 'rehype-katex'
@@ -71,6 +71,12 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()] as any,
+    optimizeDeps: {
+      // Vite 8 does not pre-bundle this CJS subpath automatically, so the
+      // raw CommonJS file is served as ESM and `createRoot`/`hydrateRoot`
+      // imports fail in dev.
+      include: ['react-dom/client'],
+    },
   },
   server: {
     port: 8000,
@@ -85,17 +91,18 @@ export default defineConfig({
   compressHTML: true,
   markdown: {
     syntaxHighlight: false,
-    rehypePlugins: [
-      [
-        rehypeExternalLinks,
-        {
-          target: '_blank',
-          rel: ['noreferrer', 'noopener'],
-        },
+    processor: unified({
+      remarkPlugins: [remarkMath, remarkEmoji],
+      rehypePlugins: [
+        [
+          rehypeExternalLinks,
+          {
+            target: '_blank',
+            rel: ['noreferrer', 'noopener'],
+          },
+        ],
+        rehypeKatex,
       ],
-      rehypeHeadingIds,
-      rehypeKatex,
-    ],
-    remarkPlugins: [remarkMath, remarkEmoji],
+    }),
   },
 })
